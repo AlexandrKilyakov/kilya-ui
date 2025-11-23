@@ -1,0 +1,42 @@
+@use "../mixin/" as *;
+@use "./_text" as *;
+
+%button-reset {
+  background-color: transparent;
+  border: 0.0625rem solid transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: 0.2s color, 0.2s background-color, 0.2s border-color;
+
+  @extend %svg-current;
+
+  svg {
+    @extend %fit-contain;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+%svg-current {
+  path,
+  rect,
+  circle {
+    &[fill] {
+      fill: currentColor;
+      transition: 0.2s fill;
+    }
+    &[stroke] {
+      stroke: currentColor;
+      transition: 0.2s stroke;
+    }
+  }
+}
+
+%absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}

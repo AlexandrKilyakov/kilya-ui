@@ -1,0 +1,32 @@
+$bg-primary: var(--bg-primary, #1677ff);
+$bg-default: var(--bg-default, #d9d9d9);
+$bg-white: var(--bg-white, #fff);
+$color-text: var(--color-text, #000);
+$color-white: var(--color-white, #fff);
+$color-link: var(--color-link, #1677ff);
+$br-default: var(--br-default, #d9d9d9);
+
+$bg-primary-hover: var(--bg-primary-hover, #4096ff);
+$bg-default-hover: var(--bg-default-hover, #0000000f);
+$color-link-hover: var(--color-link-hover, #4096ff);
+$br-default-hover: var(--br-default-hover, #0000000f);
+
+$bg-primary-focused: var(--bg-primary-focused, #4096ff);
+$bg-default-focused: var(--bg-default-focused, #0000000f);
+$color-link-focused: var(--color-link-focused, #4096ff);
+$br-default-focused: var(--br-default-focused, #0000000f);
+
+$bg-primary-pressed: var(--bg-primary-pressed, #0958d9);
+$bg-default-pressed: var(--bg-default-pressed, #00000026);
+$color-link-pressed: var(--color-link-pressed, #0958d9);
+$br-default-pressed: var(--br-default-pressed, #00000026);
+
+$bg-primary-disabled: var(--bg-primary-disabled, #0000000a);
+$bg-default-disabled: var(--bg-default-disabled, #0000000a);
+$bg-white-disabled: var(--bg-white-disabled, #0000000a);
+$color-text-disabled: var(--color-text-disabled, #00000040);
+$color-white-disabled: var(--color-white-disabled, #00000040);
+$color-link-disabled: var(--color-link-disabled, #00000040);
+$br-default-disabled: var(--br-default-disabled, #d9d9d9);
+
+$br-button-small: var(--br-button-small);

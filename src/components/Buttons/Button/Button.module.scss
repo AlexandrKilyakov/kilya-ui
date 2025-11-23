@@ -1,0 +1,28 @@
+.button {
+  &-reset {
+    @extend %button-reset;
+  }
+
+  &-default {
+    @extend %button-reset;
+    background-color: $bg-primary;
+    color: $bg-white;
+    border-color: $bg-primary;
+    border-radius: $br-button-small;
+    padding: 0.5rem 1rem;
+
+    @include hover {
+      background-color: $bg-primary-hover;
+      color: $bg-white;
+      border-color: $bg-primary-hover;
+    }
+  }
+
+  &-border {
+    @extend %button-reset;
+  }
+
+  &-white {
+    @extend %button-reset;
+  }
+}

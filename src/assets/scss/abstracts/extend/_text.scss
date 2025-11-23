@@ -1,0 +1,22 @@
+@use "../mixin/" as *;
+
+%list-reset {
+  list-style: none;
+  margin: 0;
+  padding-inline-start: 0;
+  @include margin-block(0);
+}
+
+%fit-contain {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+%fit-cover {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
