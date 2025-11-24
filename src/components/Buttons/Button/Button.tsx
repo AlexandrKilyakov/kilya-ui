@@ -7,7 +7,7 @@ export interface ButtonProps {
   className: string;
   disabled?: boolean;
   type: "submit" | "reset" | "button";
-  button: "default" | "border" | "white" | "reset";
+  button: "default" | "border" | "white" | "link" | "reset";
 }
 
 const Button: FC<ButtonProps> = ({

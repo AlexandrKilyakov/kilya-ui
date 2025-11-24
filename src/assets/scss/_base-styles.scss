@@ -7,30 +7,36 @@
   --color-link: #1677ff;
   --br-default: #d9d9d9;
 
-  --bg-primary-hover: #4096ff;
-  --bg-default-hover: #0000000f;
-  --color-link-hover: #4096ff;
-  --br-default-hover: #0000000f;
+  --hover-bg-primary: #4096ff;
+  --hover-bg-default: #0000000f;
+  --hover-color-link: #4096ff;
+  --hover-br-default: #0000000f;
 
-  --bg-primary-focused: #4096ff;
-  --bg-default-focused: #0000000f;
-  --color-link-focused: #4096ff;
-  --br-default-focused: #0000000f;
+  --focused-bg-primary: #4096ff;
+  --focused-bg-default: #0000000f;
+  --focused-color-link: #4096ff;
+  --focused-br-default: #0000000f;
 
-  --bg-primary-pressed: #0958d9;
-  --bg-default-pressed: #00000026;
-  --color-link-pressed: #0958d9;
-  --br-default-pressed: #00000026;
+  --pressed-bg-primary: #0958d9;
+  --pressed-bg-default: #00000026;
+  --pressed-color-link: #0958d9;
+  --pressed-br-default: #00000026;
 
-  --bg-primary-disabled: #0000000a;
-  --bg-default-disabled: #0000000a;
-  --bg-white-disabled: #0000000a;
-  --color-text-disabled: #00000040;
-  --color-white-disabled: #00000040;
-  --color-link-disabled: #00000040;
-  --br-default-disabled: #d9d9d9;
+  --disabled-bg-primary: #ddd;
+  --disabled-bg-default: #ddd;
+  --disabled-bg-white: #ddd;
+  --disabled-color-text: #818181;
+  --disabled-color-white: #818181;
+  --disabled-color-link: #818181;
+  --disabled-br-default: #ddd;
 
   --br-button-small: 0.25rem;
+
+  --font-family-button: monospace;
+
+  --font-size-button: 1rem;
+
+  --font-weight-button: 300;
 }
 
 html {

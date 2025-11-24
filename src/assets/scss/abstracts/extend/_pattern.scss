@@ -1,7 +1,11 @@
+@use "../_variable" as *;
 @use "../mixin/" as *;
 @use "./_text" as *;
 
 %button-reset {
+  font-style: normal;
+  line-height: 1.5;
+  width: fit-content;
   background-color: transparent;
   border: 0.0625rem solid transparent;
   padding: 0;
