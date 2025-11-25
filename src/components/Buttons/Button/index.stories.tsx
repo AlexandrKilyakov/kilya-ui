@@ -4,6 +4,11 @@ import Button from "./Button";
 const meta: Meta<typeof Button> = {
   component: Button,
   tags: ["autodocs"],
+  parameters: {
+    controls: {
+      exclude: ["className", "children", "type"],
+    },
+  },
 };
 
 export default meta;

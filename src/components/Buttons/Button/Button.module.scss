@@ -1,59 +1,15 @@
-%-button-font {
-  font-family: $button_font_family;
-  font-size: $button_font_size;
-  font-weight: $button_font_weight;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
-}
-
-%-button-custom {
-  @extend %-button-font;
-  @extend %button-reset;
-  background-color: var(--background-color);
-  color: var(--color);
-  border-color: var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 0.5rem 1rem;
-
-  @include hover {
-    background-color: var(--hover-background-color);
-    color: var(--hover-color);
-    border-color: var(--hover-border-color);
-  }
-
-  &:active {
-    background-color: var(--pressed-background-color);
-    color: var(--pressed-color);
-    border-color: var(--pressed-border-color);
-  }
-}
-
 .button {
   &-reset {
     @extend %button-reset;
   }
 
   &-default {
-    @extend %button-reset;
-    @extend %-button-custom;
-    --background-color: #{$bg_primary};
-    --color: #{$color_white};
-    --border-color: #{$bg_primary};
-    --border-radius: #{$button_br_small};
-    --hover-background-color: #{$hover_bg_primary};
-    --hover-color: #{$color_white};
-    --hover-border-color: #{$hover_bg_primary};
-    --pressed-background-color: #{$pressed_bg_primary};
-    --pressed-color: #{$color_white};
-    --pressed-border-color: #{$pressed_bg_primary};
+    @extend %button-default;
   }
 
   &-border {
     @extend %button-reset;
-    @extend %-button-custom;
+    @extend %button-custom;
     --background-color: transparent;
     --color: #{$color_text};
     --border-color: #{$bg_primary};
@@ -68,7 +24,7 @@
 
   &-white {
     @extend %button-reset;
-    @extend %-button-custom;
+    @extend %button-custom;
     --background-color: #{$bg_white};
     --color: #{$color_text};
     --border-color: #{$bg_white};

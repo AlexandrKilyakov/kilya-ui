@@ -4,6 +4,11 @@ import ButtonClose from "./ButtonClose";
 const meta: Meta<typeof ButtonClose> = {
   component: ButtonClose,
   tags: ["autodocs"],
+  parameters: {
+    controls: {
+      exclude: ["className"],
+    },
+  },
 };
 
 export default meta;
