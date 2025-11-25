@@ -29,8 +29,9 @@ $disabled_color_white: var(--disabled-color-white, #818181);
 $disabled_color_link: var(--disabled-color-link, #818181);
 $disabled_br_default: var(--disabled-br-default, #ddd);
 
-$br_button_small: var(--br-button-small);
-
-$font_family_button: var(--font-family-button);
-$font_size_button: var(--font-size-button);
-$font_weight_button: var(--font-weight-button);
+$button_br_small: var(--button-br-small);
+$button_font_family: var(--button-font-family);
+$button_font_size: var(--button-font-size);
+$button_font_weight: var(--button-font-weight);
+$button_color_close: var(--button-color-close);
+$button_hover_color_close: var(--button-hover-color-close);

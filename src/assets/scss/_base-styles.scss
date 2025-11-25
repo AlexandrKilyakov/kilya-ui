@@ -30,13 +30,12 @@
   --disabled-color-link: #818181;
   --disabled-br-default: #ddd;
 
-  --br-button-small: 0.25rem;
-
-  --font-family-button: monospace;
-
-  --font-size-button: 1rem;
-
-  --font-weight-button: 300;
+  --button-br-small: 0.25rem;
+  --button-font-family: monospace;
+  --button-font-size: 1rem;
+  --button-font-weight: 300;
+  --button-color-close: #000;
+  --button-hover-color-close: #ff0000;
 }
 
 html {

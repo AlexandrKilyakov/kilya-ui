@@ -10,6 +10,7 @@
   border: 0.0625rem solid transparent;
   padding: 0;
   cursor: pointer;
+  user-select: none;
   transition: 0.2s color, 0.2s background-color, 0.2s border-color;
 
   @extend %svg-current;
@@ -20,6 +21,13 @@
 
   &:focus-visible {
     outline: none;
+  }
+
+  &:disabled {
+    background-color: $disabled_bg_primary;
+    color: $disabled_color_white;
+    border-color: $disabled_br_default;
+    pointer-events: none;
   }
 }
 

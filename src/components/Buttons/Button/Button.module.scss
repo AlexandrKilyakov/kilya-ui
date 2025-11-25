@@ -1,7 +1,7 @@
 %-button-font {
-  font-family: $font_family_button;
-  font-size: $font_size_button;
-  font-weight: $font_weight_button;
+  font-family: $button_font_family;
+  font-size: $button_font_size;
+  font-weight: $button_font_weight;
   text-align: center;
   display: flex;
   align-items: center;
@@ -29,13 +29,6 @@
     color: var(--pressed-color);
     border-color: var(--pressed-border-color);
   }
-
-  &:disabled {
-    background-color: $disabled_bg_primary;
-    color: $disabled_color_white;
-    border-color: $disabled_br_default;
-    pointer-events: none;
-  }
 }
 
 .button {
@@ -49,7 +42,7 @@
     --background-color: #{$bg_primary};
     --color: #{$color_white};
     --border-color: #{$bg_primary};
-    --border-radius: #{$br_button_small};
+    --border-radius: #{$button_br_small};
     --hover-background-color: #{$hover_bg_primary};
     --hover-color: #{$color_white};
     --hover-border-color: #{$hover_bg_primary};
@@ -64,7 +57,7 @@
     --background-color: transparent;
     --color: #{$color_text};
     --border-color: #{$bg_primary};
-    --border-radius: #{$br_button_small};
+    --border-radius: #{$button_br_small};
     --hover-background-color: #{$hover_bg_primary};
     --hover-color: #{$color_white};
     --hover-border-color: #{$hover_bg_primary};
@@ -79,7 +72,7 @@
     --background-color: #{$bg_white};
     --color: #{$color_text};
     --border-color: #{$bg_white};
-    --border-radius: #{$br_button_small};
+    --border-radius: #{$button_br_small};
     --hover-background-color: #{$hover_bg_primary};
     --hover-color: #{$color_white};
     --hover-border-color: #{$hover_bg_primary};

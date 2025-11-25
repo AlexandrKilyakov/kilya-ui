@@ -1,0 +1,31 @@
+import { type FC } from "react";
+import cn from "classnames";
+import styles from "./ButtonClose.module.scss";
+
+export interface ButtonCloseProps {
+  className: string;
+  disabled?: boolean;
+}
+
+const ButtonClose: FC<ButtonCloseProps> = ({
+  disabled = false,
+  className = "",
+  ...props
+}) => {
+  return (
+    <button
+      type="button"
+      className={cn(styles["button-close"], className)}
+      disabled={disabled}
+      {...props}
+    >
+      Close
+      <svg viewBox="0 0 24 25">
+        <path d="M6.34314 18.1567L17.6568 6.84303"></path>
+        <path d="M17.6569 18.1567L6.34315 6.84303"></path>
+      </svg>
+    </button>
+  );
+};
+
+export default ButtonClose;
