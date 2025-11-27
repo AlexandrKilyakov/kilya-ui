@@ -1,0 +1,9 @@
+@use "@/assets/scss/abstracts" as *;
+
+.input {
+  &-checkbox,
+  &-radio {
+    margin-right: 8px;
+    transform: scale(1.2);
+  }
+}

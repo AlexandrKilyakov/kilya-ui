@@ -1,0 +1,9 @@
+@use "@/assets/scss/abstracts" as *;
+
+.input {
+  &-button,
+  &-submit,
+  &-reset {
+    @extend %button-default;
+  }
+}

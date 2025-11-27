@@ -1,0 +1,14 @@
+@use "@/assets/scss/abstracts" as *;
+
+.input {
+  &-date,
+  &-datetime-local,
+  &-month,
+  &-time,
+  &-week {
+    // стили для полей выбора даты
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-family: inherit;
+  }
+}

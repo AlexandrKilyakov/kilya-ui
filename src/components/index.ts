@@ -1,5 +1,5 @@
 import Button from "./Buttons";
-import Input from "./Inputs/Input";
+import Input from "./Input";
 
 export default {
   Button,
