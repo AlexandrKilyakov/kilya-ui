@@ -1,11 +1,7 @@
 import { type FC } from "react";
 import cn from "classnames";
 import styles from "./ButtonClose.module.scss";
-
-export interface ButtonCloseProps {
-  className: string;
-  disabled?: boolean;
-}
+import type { ButtonCloseProps } from "./types";
 
 const ButtonClose: FC<ButtonCloseProps> = ({
   disabled = false,

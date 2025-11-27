@@ -1,14 +1,7 @@
-import React, { type FC } from "react";
+import { type FC } from "react";
 import cn from "classnames";
 import styles from "./Button.module.scss";
-
-export interface ButtonProps {
-  children: React.ReactNode;
-  className: string;
-  disabled?: boolean;
-  type: "submit" | "reset" | "button";
-  button: "default" | "border" | "white" | "link" | "reset";
-}
+import type { ButtonProps } from "./types";
 
 const Button: FC<ButtonProps> = ({
   children,
