@@ -1,0 +1,16 @@
+@use "@/assets/scss/abstracts" as *;
+
+.button-white {
+  @extend %button-reset;
+  @extend %button-custom;
+  --background-color: #{$bg_white};
+  --color: #{$color_text};
+  --border-color: #{$bg_white};
+  --border-radius: #{$button_br_small};
+  --hover-background-color: #{$hover_bg_primary};
+  --hover-color: #{$color_white};
+  --hover-border-color: #{$hover_bg_primary};
+  --pressed-background-color: #{$pressed_bg_primary};
+  --pressed-color: #{$color_white};
+  --pressed-border-color: #{$pressed_bg_primary};
+}
