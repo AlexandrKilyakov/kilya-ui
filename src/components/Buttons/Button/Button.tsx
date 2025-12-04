@@ -1,7 +1,7 @@
+import "./Button.scss";
 import { type FC } from "react";
-import cn from "classnames";
-import styles from "./Button.module.scss";
 import type { ButtonProps } from "./types";
+import { baseClass } from "../../../utils/classNames";
 
 const Button: FC<ButtonProps> = ({
   children,
@@ -14,7 +14,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={cn(styles[`button-${button}`], className)}
+      className={baseClass(`button-${button}`, className)}
       disabled={disabled}
       {...props}
     >

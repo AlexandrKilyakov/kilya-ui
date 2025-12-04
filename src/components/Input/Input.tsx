@@ -1,13 +1,13 @@
+import "./Input.scss";
 import { type FC } from "react";
-import cn from "classnames";
-import styles from "./Input.module.scss";
 import type { InputProps } from "./types";
+import { baseClass } from "../../utils/classNames";
 
 export const Input: FC<InputProps> = ({
-  type,
-  className,
-  name,
   id,
+  type,
+  name,
+  className,
   disabled,
   required,
   readOnly,
@@ -19,7 +19,7 @@ export const Input: FC<InputProps> = ({
   return (
     <input
       type={type}
-      className={cn(styles[`input-${type}`], className)}
+      className={baseClass(`input-${type}`, className)}
       name={name}
       id={id}
       disabled={disabled}

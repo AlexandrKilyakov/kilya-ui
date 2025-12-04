@@ -1,7 +1,7 @@
+import "./ButtonClose.scss";
 import { type FC } from "react";
-import cn from "classnames";
-import styles from "./ButtonClose.module.scss";
 import type { ButtonCloseProps } from "./types";
+import { baseClass } from "../../../utils/classNames";
 
 const ButtonClose: FC<ButtonCloseProps> = ({
   disabled = false,
@@ -11,7 +11,7 @@ const ButtonClose: FC<ButtonCloseProps> = ({
   return (
     <button
       type="button"
-      className={cn(styles["button-close"], className)}
+      className={baseClass("button-close", className)}
       disabled={disabled}
       {...props}
     >
