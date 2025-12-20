@@ -1,7 +1,7 @@
-import "./Button.scss";
+// Button.tsx
 import { type FC } from "react";
 import type { ButtonProps } from "./types";
-import { baseClass } from "../../../utils/classNames";
+import { ButtonStyled } from "./Button.style";
 
 const Button: FC<ButtonProps> = ({
   children,
@@ -12,14 +12,16 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => {
   return (
-    <button
+    <ButtonStyled
       type={type}
-      className={baseClass(`button-${button}`, className)}
       disabled={disabled}
+      button={button}
+      className={className}
+      aria-disabled={disabled}
       {...props}
     >
       {children}
-    </button>
+    </ButtonStyled>
   );
 };
 

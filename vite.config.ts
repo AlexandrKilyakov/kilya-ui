@@ -17,27 +17,21 @@ export default defineConfig({
       "@public": path.resolve(__dirname, "public"),
     },
   },
-  css: {
-    postcss: "./postcss.config.js",
-    preprocessorOptions: {
-      scss: {
-        // Автодобавление путей
-        additionalData: `@use "@/assets/scss/abstracts" as *;`,
-      },
-    },
-  },
   build: {
     lib: {
       entry: resolve(__dirname, "src/main.ts"),
       name: "kilya-ui",
       fileName: (format) => `kilya-ui.${format}.js`,
+      formats: ["es", "umd"],
     },
     rollupOptions: {
-      external: ["react"],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
+          "react-dom": "ReactDOM",
         },
+        exports: "named",
       },
     },
   },

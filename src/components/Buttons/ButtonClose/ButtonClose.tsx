@@ -1,7 +1,7 @@
-import "./ButtonClose.scss";
+// ButtonClose.tsx
 import { type FC } from "react";
 import type { ButtonCloseProps } from "./types";
-import { baseClass } from "../../../utils/classNames";
+import StyledButton from "./ButtonClose.style";
 
 const ButtonClose: FC<ButtonCloseProps> = ({
   disabled = false,
@@ -9,18 +9,19 @@ const ButtonClose: FC<ButtonCloseProps> = ({
   ...props
 }) => {
   return (
-    <button
+    <StyledButton
       type="button"
-      className={baseClass("button-close", className)}
+      className={className}
       disabled={disabled}
+      aria-label="Close"
       {...props}
     >
-      Close
+      <span style={{ display: "none" }}>Close</span>
       <svg viewBox="0 0 24 25">
         <path d="M6.34314 18.1567L17.6568 6.84303"></path>
         <path d="M17.6569 18.1567L6.34315 6.84303"></path>
       </svg>
-    </button>
+    </StyledButton>
   );
 };
 

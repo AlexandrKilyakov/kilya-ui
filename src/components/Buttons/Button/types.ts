@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+// types.ts
+import type { ReactNode, ButtonHTMLAttributes } from "react";
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  className: string;
+  className?: string;
   disabled?: boolean;
-  type: "submit" | "reset" | "button";
-  button: "default" | "border" | "white" | "link" | "reset";
+  type?: "submit" | "reset" | "button";
+  button?: "default" | "border" | "white" | "link" | "reset";
 }

@@ -1,9 +1,9 @@
-import "./Input.scss";
+// Input.tsx
 import { type FC } from "react";
 import type { InputProps } from "./types";
-import { baseClass } from "../../utils/classNames";
+import StyledInput from "./Input.style";
 
-export const Input: FC<InputProps> = ({
+const Input: FC<InputProps> = ({
   id,
   type,
   name,
@@ -17,9 +17,9 @@ export const Input: FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <input
+    <StyledInput
       type={type}
-      className={baseClass(`input-${type}`, className)}
+      className={className}
       name={name}
       id={id}
       disabled={disabled}
