@@ -27,4 +27,5 @@ export type InputType =
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   type: InputType;
+  label?: string;
 };

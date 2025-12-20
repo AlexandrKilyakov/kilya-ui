@@ -9,7 +9,6 @@ const textInputStyles = css`
   border: 1px solid ${theme.colors.brDefault};
   padding: 8px 12px;
   border-radius: 4px;
-  width: 100%;
 
   &::placeholder {
     color: #999;
@@ -48,7 +47,6 @@ const fileInputStyles = css`
   padding: 8px;
   border: 1px dashed ${theme.colors.brDefault};
   border-radius: 4px;
-  width: 100%;
   cursor: pointer;
 
   &::file-selector-button {
@@ -69,7 +67,6 @@ const numberInputStyles = css`
 
 // Стили для диапазона
 const rangeInputStyles = css`
-  width: 100%;
   height: 6px;
   background: ${theme.colors.bgDefault};
   border-radius: 3px;
@@ -114,6 +111,16 @@ const hiddenInputStyles = css`
   display: none;
 `;
 
+const textLabelStyles = css`
+  flex-direction: column;
+
+  text {
+    order: -1;
+  }
+`;
+
+const checkableLabelStyles = css``;
+
 // Определяем стили в зависимости от типа
 const getInputStyles = (type: InputType) => {
   switch (type) {
@@ -157,9 +164,28 @@ const getInputStyles = (type: InputType) => {
   }
 };
 
+const getLabelStyles = (type: string) => {
+  switch (type) {
+    case "checkbox":
+    case "radio":
+      return checkableLabelStyles;
+
+    default:
+      return textLabelStyles;
+  }
+};
+
 // Создаем стилизованный компонент
 const StyledInput = styled.input<InputProps>`
+  width: auto;
+  max-width: 100%;
   ${({ type }) => getInputStyles(type)}
 `;
 
-export default StyledInput;
+const StyledLabel = styled.label<{ $type: string }>`
+  ${({ $type }) => getLabelStyles($type)}
+  display: flex;
+  gap: 0.25rem;
+`;
+
+export { StyledInput, StyledLabel };

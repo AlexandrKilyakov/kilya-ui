@@ -15,9 +15,6 @@ export default meta;
 
 type Story = StoryObj<typeof Input>;
 
-/* -----------------------------------------
-   Button-like inputs
------------------------------------------- */
 export const Button: Story = {
   args: {
     type: "button",
@@ -39,13 +36,11 @@ export const Submit: Story = {
   },
 };
 
-/* -----------------------------------------
-   Checkbox / Radio
------------------------------------------- */
 export const Checkbox: Story = {
   args: {
     type: "checkbox",
     checked: false,
+    label: "Test",
   },
 };
 
@@ -56,9 +51,6 @@ export const Radio: Story = {
   },
 };
 
-/* -----------------------------------------
-   Date / Time inputs
------------------------------------------- */
 export const DateInput: Story = {
   args: {
     type: "date",
@@ -94,9 +86,6 @@ export const Time: Story = {
   },
 };
 
-/* -----------------------------------------
-   File input
------------------------------------------- */
 export const File: Story = {
   args: {
     type: "file",
@@ -105,9 +94,6 @@ export const File: Story = {
   },
 };
 
-/* -----------------------------------------
-   Image input
------------------------------------------- */
 export const Image: Story = {
   args: {
     type: "image",
@@ -118,9 +104,6 @@ export const Image: Story = {
   },
 };
 
-/* -----------------------------------------
-   Number-like inputs
------------------------------------------- */
 export const Range: Story = {
   args: {
     type: "range",
@@ -141,9 +124,6 @@ export const Number: Story = {
   },
 };
 
-/* -----------------------------------------
-   Color
------------------------------------------- */
 export const Color: Story = {
   args: {
     type: "color",
@@ -151,9 +131,6 @@ export const Color: Story = {
   },
 };
 
-/* -----------------------------------------
-   Text-like inputs
------------------------------------------- */
 export const Email: Story = {
   args: {
     type: "email",
@@ -196,9 +173,6 @@ export const Url: Story = {
   },
 };
 
-/* -----------------------------------------
-   Hidden
------------------------------------------- */
 export const Hidden: Story = {
   args: {
     type: "hidden",
