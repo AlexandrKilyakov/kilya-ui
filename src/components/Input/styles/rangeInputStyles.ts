@@ -38,8 +38,9 @@ const focusSliderTumb = css`
 
 const rangeInputStyles = css`
   --border-image-source: ${theme.range.colors.borderImageSource.default};
-  --thumb-line: calc(${theme.range.sizes.track} / 2);
-  --margin-top-thumb: calc(${theme.range.sizes.thumb} / -2 + var(--thumb-line));
+  --margin-top-thumb: calc(
+    ${theme.range.sizes.thumb} / -2 + (${theme.range.sizes.track} / 2)
+  );
   accent-color: ${theme.colors.bgPrimary};
   appearance: none;
   height: ${theme.range.sizes.thumb};
@@ -112,7 +113,7 @@ const rangeInputStyles = css`
       var(--border-image-source) 50%,
       transparent 0
     );
-    border-image-width: calc(50% - var(--thumb-line)) 50%;
+    border-image-width: calc(50% - ${theme.range.sizes.line}) 50%;
   }
 
   /* Disabled состояния */

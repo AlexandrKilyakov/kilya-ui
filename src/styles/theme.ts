@@ -79,6 +79,7 @@ export const theme = {
     sizes: {
       thumb: "var(--range-thumb-size, 1.25rem)",
       track: "var(--range-track-size, 0.125rem)",
+      line: "var(--range-line-size, 0.125rem)",
     },
     radius: "var(--range-radius, 1.25rem)",
   },
