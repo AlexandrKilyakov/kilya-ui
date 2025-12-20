@@ -10,7 +10,7 @@ const Input: FC<InputProps> = ({ id, type = "text", label, ...props }) => {
     return (
       <StyledLabel $type={type}>
         <Component />
-        <text>{label}</text>
+        <p>{label}</p>
       </StyledLabel>
     );
   }

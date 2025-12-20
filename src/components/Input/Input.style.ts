@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import type { InputProps, InputType } from "./types";
 import { buttonDefault } from "../../styles/helpers/buttonMixins";
 import { theme } from "../../styles";
+import checkableInputStyles from "./styles/checkableInputStyles";
 
 // Стили для текстовых инпутов
 const textInputStyles = css`
@@ -20,16 +21,6 @@ const buttonInputStyles = css`
   ${buttonDefault}
   display: inline-block;
   text-align: center;
-`;
-
-// Стили для чекбоксов и радиокнопок
-const checkableInputStyles = css`
-  margin-right: 8px;
-  transform: scale(1.2);
-
-  &:checked {
-    accent-color: ${theme.colors.bgPrimary};
-  }
 `;
 
 // Стили для цветового пикера
@@ -114,7 +105,7 @@ const hiddenInputStyles = css`
 const textLabelStyles = css`
   flex-direction: column;
 
-  text {
+  p {
     order: -1;
   }
 `;
@@ -186,6 +177,14 @@ const StyledLabel = styled.label<{ $type: string }>`
   ${({ $type }) => getLabelStyles($type)}
   display: flex;
   gap: 0.25rem;
+  user-select: none;
+
+  p {
+    font-family: ${theme.typography.fontFamily};
+    font-size: ${theme.typography.label.fontSize};
+    font-weight: ${theme.typography.label.fontWeight};
+    margin: 0;
+  }
 `;
 
 export { StyledInput, StyledLabel };

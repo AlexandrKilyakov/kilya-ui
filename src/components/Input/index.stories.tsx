@@ -39,7 +39,7 @@ export const Submit: Story = {
 export const Checkbox: Story = {
   args: {
     type: "checkbox",
-    checked: false,
+    disabled: false,
     label: "Test",
   },
 };
@@ -47,7 +47,8 @@ export const Checkbox: Story = {
 export const Radio: Story = {
   args: {
     type: "radio",
-    checked: false,
+    disabled: false,
+    label: "Test",
   },
 };
 

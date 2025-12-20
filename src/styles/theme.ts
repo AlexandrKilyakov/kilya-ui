@@ -51,15 +51,21 @@ export const theme = {
   },
 
   typography: {
+    fontFamily: "var(--button-font-family, system-ui)",
     button: {
       fontFamily: "var(--button-font-family, system-ui)",
       fontSize: "var(--button-font-size, 0.875rem)",
       fontWeight: "var(--button-font-weight, 400)",
     },
+    label: {
+      fontSize: "var(--label-font-size, 1rem)",
+      fontWeight: "var(--label-font-weight, 400)",
+    },
   },
 
   radius: {
-    button: { brSmall: "var(--button-br-small, 0.25rem)" },
+    button: { brSmall: "var(--br-button-small, 0.25rem)" },
+    checkbox: "var(--br-checkbox, 0.125rem)",
   },
 
   spacing: {
@@ -68,6 +74,11 @@ export const theme = {
 
   padding: {
     button: "var(--button-padding, 0.5rem 1rem)",
+  },
+
+  shadow: {
+    checkmark:
+      "var(--shadow-checkmark, 0 0 0 0.25rem rgba(13, 110, 253, 0.25))",
   },
 } as const;
 
