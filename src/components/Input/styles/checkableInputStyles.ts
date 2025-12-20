@@ -11,7 +11,7 @@ const checkableInputStyles = css`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-color: transparent;
+  background-color: ${theme.colors.bgWhite};
   cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
     border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;

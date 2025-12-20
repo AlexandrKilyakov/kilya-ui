@@ -95,7 +95,7 @@ export const theme = {
 
   padding: {
     button: "var(--button-padding, 0.5rem 1rem)",
-    input: "var(--button-padding, 0.625rem 0.75rem)",
+    input: "var(--button-padding, 0.5rem 0.75rem)",
   },
 
   shadow: {
