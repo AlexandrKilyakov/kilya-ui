@@ -1,19 +1,24 @@
+import { color } from "storybook/theming";
+
 export const theme = {
   colors: {
     // Основные цвета
     bgPrimary: "var(--bg-primary, #1677ff)",
     bgDefault: "var(--bg-default, #d9d9d9)",
     bgWhite: "var(--bg-white, #fff)",
-    colorText: "var(--color-text, #000)",
-    colorWhite: "var(--color-white, #fff)",
-    colorLink: "var(--color-link, #1677ff)",
-    brDefault: "var(--br-default, #d9d9d9)",
+    text: "var(--color-text, #000)",
+    white: "var(--color-white, #fff)",
+    link: "var(--color-link, #1677ff)",
+    brDefault: "var(--color-br-default, #d9d9d9)",
+    inputText: "var(--color-input-text, #000)",
+    inputBg: "var(--bg-input-text, #ffffff)",
+    inputBorder: "var(--color-br-input-text, #a8a8a8)",
 
     // Hover состояния
     hover: {
       bgPrimary: "var(--hover-bg-primary, #4096ff)",
       bgDefault: "var(--hover-bg-default, #0000000f)",
-      colorLink: "var(--hover-color-link, #4096ff)",
+      link: "var(--hover-color-link, #4096ff)",
       brDefault: "var(--hover-br-default, #0000000f)",
     },
 
@@ -21,7 +26,7 @@ export const theme = {
     focused: {
       bgPrimary: "var(--focused-bg-primary, #4096ff)",
       bgDefault: "var(--focused-bg-default, #0000000f)",
-      colorLink: "var(--focused-color-link, #4096ff)",
+      link: "var(--focused-color-link, #4096ff)",
       brDefault: "var(--focused-br-default, #0000000f)",
     },
 
@@ -29,7 +34,7 @@ export const theme = {
     pressed: {
       bgPrimary: "var(--pressed-bg-primary, #0958d9)",
       bgDefault: "var(--pressed-bg-default, #00000026)",
-      colorLink: "var(--pressed-color-link, #0958d9)",
+      link: "var(--pressed-color-link, #0958d9)",
       brDefault: "var(--pressed-br-default, #00000026)",
     },
 
@@ -38,9 +43,9 @@ export const theme = {
       bgPrimary: "var(--disabled-bg-primary, #ddd)",
       bgDefault: "var(--disabled-bg-default, #ddd)",
       bgWhite: "var(--disabled-bg-white, #ddd)",
-      colorText: "var(--disabled-color-text, #818181)",
-      colorWhite: "var(--disabled-color-white, #818181)",
-      colorLink: "var(--disabled-color-link, #818181)",
+      text: "var(--disabled-color-text, #818181)",
+      white: "var(--disabled-color-white, #818181)",
+      link: "var(--disabled-color-link, #818181)",
       brDefault: "var(--disabled-br-default, #ddd)",
     },
 
@@ -63,9 +68,25 @@ export const theme = {
     },
   },
 
+  range: {
+    colors: {
+      borderImageSource: {
+        default: "var(--range-border-image-source, #1677ff)",
+        hover: "var(--range-hover-border-image-source, #4096ff)",
+        pressed: "var(--range-pressed-border-image-source, #0958d9)",
+      },
+    },
+    sizes: {
+      thumb: "var(--range-thumb-size, 1.25rem)",
+      track: "var(--range-track-size, 0.125rem)",
+    },
+    radius: "var(--range-radius, 1.25rem)",
+  },
+
   radius: {
     button: { brSmall: "var(--br-button-small, 0.25rem)" },
     checkbox: "var(--br-checkbox, 0.125rem)",
+    input: "var(--br-checkbox, 0.3125rem)",
   },
 
   spacing: {
@@ -74,6 +95,7 @@ export const theme = {
 
   padding: {
     button: "var(--button-padding, 0.5rem 1rem)",
+    input: "var(--button-padding, 0.625rem 0.75rem)",
   },
 
   shadow: {

@@ -13,7 +13,7 @@ const StyledButton = styled.button<ButtonCloseProps>`
   border-radius: 0.25rem;
   color: ${(props) => {
     if (props.disabled) {
-      return theme.colors.disabled.colorText;
+      return theme.colors.disabled.text;
     }
     return props.color || theme.colors.button.colorClose;
   }};
@@ -21,7 +21,7 @@ const StyledButton = styled.button<ButtonCloseProps>`
   ${hoverMixin(css<ButtonCloseProps>`
     color: ${(props) => {
       if (props.disabled) {
-        return theme.colors.disabled.colorText;
+        return theme.colors.disabled.text;
       }
       return props.hoverColor || theme.colors.button.hoverColorClose;
     }};

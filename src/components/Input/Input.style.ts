@@ -4,23 +4,14 @@ import type { InputProps, InputType } from "./types";
 import { buttonDefault } from "../../styles/helpers/buttonMixins";
 import { theme } from "../../styles";
 import checkableInputStyles from "./styles/checkableInputStyles";
-
-// Стили для текстовых инпутов
-const textInputStyles = css`
-  border: 1px solid ${theme.colors.brDefault};
-  padding: 8px 12px;
-  border-radius: 4px;
-
-  &::placeholder {
-    color: #999;
-  }
-`;
+import textInputStyles from "./styles/textInputStyles";
+import numberInputStyles from "./styles/numberInputStyles";
+import rangeInputStyles from "./styles/rangeInputStyles";
 
 // Стили для кнопок-инпутов
 const buttonInputStyles = css`
   ${buttonDefault}
   display: inline-block;
-  text-align: center;
 `;
 
 // Стили для цветового пикера
@@ -46,42 +37,6 @@ const fileInputStyles = css`
   }
 `;
 
-// Стили для числового инпута
-const numberInputStyles = css`
-  ${textInputStyles}
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    margin: 0;
-  }
-`;
-
-// Стили для диапазона
-const rangeInputStyles = css`
-  height: 6px;
-  background: ${theme.colors.bgDefault};
-  border-radius: 3px;
-  outline: none;
-
-  &::-webkit-slider-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: ${theme.colors.bgPrimary};
-    cursor: pointer;
-    appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: ${theme.colors.bgPrimary};
-    cursor: pointer;
-    border: none;
-  }
-`;
-
 // Стили для инпута-изображения
 const imageInputStyles = css`
   padding: 10px 20px;
@@ -90,7 +45,7 @@ const imageInputStyles = css`
   cursor: pointer;
   font-weight: bold;
   background-color: ${theme.colors.bgPrimary};
-  color: ${theme.colors.colorWhite};
+  color: ${theme.colors.white};
 
   &:hover:not(:disabled) {
     background-color: ${theme.colors.hover.bgPrimary};

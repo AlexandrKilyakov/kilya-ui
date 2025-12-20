@@ -26,7 +26,7 @@ export const buttonReset = css`
 
   &:disabled {
     background-color: ${theme.colors.disabled.bgPrimary};
-    color: ${theme.colors.disabled.colorWhite};
+    color: ${theme.colors.disabled.white};
     border-color: ${theme.colors.disabled.brDefault};
     pointer-events: none;
   }
@@ -47,7 +47,7 @@ export const buttonCustom = css`
   ${buttonFont}
   ${buttonReset}
   background-color: var(--background-color, ${theme.colors.bgPrimary});
-  color: var(--color, ${theme.colors.colorWhite});
+  color: var(--color, ${theme.colors.white});
   border-color: var(--border-color, ${theme.colors.bgPrimary});
   border-radius: var(--border-radius, ${theme.radius.button.brSmall});
   padding: 0.5rem 1rem;
@@ -57,7 +57,7 @@ export const buttonCustom = css`
       --hover-background-color,
       ${theme.colors.hover.bgPrimary}
     );
-    color: var(--hover-color, ${theme.colors.colorWhite});
+    color: var(--hover-color, ${theme.colors.white});
     border-color: var(--hover-border-color, ${theme.colors.hover.bgPrimary});
   `)}
 
@@ -66,7 +66,7 @@ export const buttonCustom = css`
       --pressed-background-color,
       ${theme.colors.pressed.bgPrimary}
     );
-    color: var(--pressed-color, ${theme.colors.colorWhite});
+    color: var(--pressed-color, ${theme.colors.white});
     border-color: var(
       --pressed-border-color,
       ${theme.colors.pressed.bgPrimary}
@@ -78,13 +78,13 @@ export const buttonDefault = css`
   ${buttonReset}
   ${buttonCustom}
   --background-color: ${theme.colors.bgPrimary};
-  --color: ${theme.colors.colorWhite};
+  --color: ${theme.colors.white};
   --border-color: ${theme.colors.bgPrimary};
   --border-radius: ${theme.radius.button.brSmall};
   --hover-background-color: ${theme.colors.hover.bgPrimary};
-  --hover-color: ${theme.colors.colorWhite};
+  --hover-color: ${theme.colors.white};
   --hover-border-color: ${theme.colors.hover.bgPrimary};
   --pressed-background-color: ${theme.colors.pressed.bgPrimary};
-  --pressed-color: ${theme.colors.colorWhite};
+  --pressed-color: ${theme.colors.white};
   --pressed-border-color: ${theme.colors.pressed.bgPrimary};
 `;
