@@ -5,25 +5,18 @@ export interface RangeProps {
     title: string;
     calculation?: string;
   };
-
   step?: number;
-
   value?: number;
-
-  onChange: (value: number) => void;
-
+  onChange?: (value: number) => void;
   className?: string;
 }
 
 export interface RangeStepsProps {
+  title?: string;
   steps?: Array<{
-    id: string | number;
+    value: string | number;
     name: string;
-    value?: number;
   }>;
-  stepValue?: string | number;
-  mode?: "range" | "steps";
-  onChange?: (value: string | number) => void;
 }
 
 export type ExtendedRangeProps = RangeProps & RangeStepsProps;
