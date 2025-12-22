@@ -1,145 +1,152 @@
-// Input.style.ts
 import styled, { css } from "styled-components";
-import type { InputProps, InputType } from "./types";
-import { buttonDefault } from "../../styles/helpers/buttonMixins";
 import { theme } from "../../styles";
-import checkableInputStyles from "./styles/checkableInputStyles";
-import textInputStyles from "./styles/textInputStyles";
-import numberInputStyles from "./styles/numberInputStyles";
-import rangeInputStyles from "./styles/rangeInputStyles";
+import Input from "../Input";
 
-// Стили для кнопок-инпутов
-const buttonInputStyles = css`
-  ${buttonDefault}
-  display: inline-block;
-`;
-
-// Стили для цветового пикера
-const colorInputStyles = css`
-  width: 50px;
-  height: 30px;
-  padding: 2px;
-  border: 1px solid ${theme.colors.brDefault};
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
-// Стили для файлового инпута
-const fileInputStyles = css`
-  padding: 8px;
-  border: 1px dashed ${theme.colors.brDefault};
-  border-radius: 4px;
-  cursor: pointer;
-
-  &::file-selector-button {
-    ${buttonDefault}
-    margin-right: 12px;
-  }
-`;
-
-// Стили для инпута-изображения
-const imageInputStyles = css`
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  background-color: ${theme.colors.bgPrimary};
-  color: ${theme.colors.white};
-
-  &:hover:not(:disabled) {
-    background-color: ${theme.colors.hover.bgPrimary};
-  }
-`;
-
-// Стили для скрытого инпута
-const hiddenInputStyles = css`
-  display: none;
-`;
-
-const textLabelStyles = css`
-  flex-direction: column;
-
-  p {
-    order: -1;
-  }
-`;
-
-const checkableLabelStyles = css``;
-
-// Определяем стили в зависимости от типа
-const getInputStyles = (type: InputType) => {
-  switch (type) {
-    case "button":
-    case "submit":
-    case "reset":
-      return buttonInputStyles;
-
-    case "checkbox":
-    case "radio":
-      return checkableInputStyles;
-
-    case "color":
-      return colorInputStyles;
-
-    case "date":
-    case "datetime-local":
-    case "month":
-    case "time":
-    case "week":
-      return textInputStyles;
-
-    case "file":
-      return fileInputStyles;
-
-    case "image":
-      return imageInputStyles;
-
-    case "number":
-      return numberInputStyles;
-
-    case "range":
-      return rangeInputStyles;
-
-    case "hidden":
-      return hiddenInputStyles;
-
-    // text, password, email, search, tel, url
-    default:
-      return textInputStyles;
-  }
-};
-
-const getLabelStyles = (type: string) => {
-  switch (type) {
-    case "checkbox":
-    case "radio":
-      return checkableLabelStyles;
-
-    default:
-      return textLabelStyles;
-  }
-};
-
-// Создаем стилизованный компонент
-const StyledInput = styled.input<InputProps>`
-  width: auto;
-  max-width: 100%;
-  ${({ type }) => getInputStyles(type)}
-`;
-
-const StyledLabel = styled.label<{ $type: string }>`
-  ${({ $type }) => getLabelStyles($type)}
-  display: flex;
-  gap: 0.25rem;
+const RangeContainer = styled.div`
   user-select: none;
+  margin-bottom: 1.25rem;
+`;
 
-  p {
-    font-family: ${theme.typography.fontFamily};
-    font-size: ${theme.typography.label.fontSize};
-    font-weight: ${theme.typography.label.fontWeight};
-    margin: 0;
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const Title = styled.span`
+  font-family: ${theme.typography.fontFamily};
+  font-size: ${theme.typography.label.fontSize};
+  font-weight: ${theme.typography.label.fontWeight};
+  color: ${theme.colors.text};
+  margin-right: auto;
+  flex-shrink: 0;
+`;
+
+const Calculation = styled.span`
+  font-family: ${theme.typography.fontFamily};
+  font-size: ${theme.typography.label.fontSize};
+  font-weight: ${theme.typography.label.fontWeight};
+  color: ${theme.colors.text};
+  opacity: 0.7;
+  flex-shrink: 0;
+`;
+
+const RangeBody = styled.label<{ $hasSteps?: boolean }>`
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+
+  ${({ $hasSteps }) =>
+    $hasSteps &&
+    css`
+      display: grid;
+    `}
+`;
+
+// Контейнер для шагов с сеткой
+const RangeStepContainer = styled.div<{ $stepsCount: number }>`
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(${({ $stepsCount }) => $stepsCount}, 1fr);
+  gap: 0.25rem;
+  overflow: hidden;
+  padding-top: 1.5rem;
+
+  // Скрываем последний шаг на мобильных, если их много
+  @media (max-width: 30rem) {
+    .range-step-number:last-child {
+      display: none;
+    }
   }
 `;
 
-export { StyledInput, StyledLabel };
+const RangeNumber = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  letter-spacing: 0em;
+  font-size: 0.75rem;
+  font-family: ${theme.typography.fontFamily};
+  color: ${theme.colors.text};
+  transition: color 0.2s ease-in-out;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+
+  &:hover {
+    color: ${theme.colors.hover.bgPrimary};
+  }
+
+  &:active {
+    color: ${theme.colors.pressed.bgPrimary};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.focused.bgPrimary};
+    outline-offset: 2px;
+  }
+`;
+
+const RangeStepNumber = styled.span<{ $isActive?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  letter-spacing: 0em;
+  font-size: 0.75rem;
+  font-family: ${theme.typography.fontFamily};
+  color: ${({ $isActive }) =>
+    $isActive ? theme.colors.bgPrimary : theme.colors.text};
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  font-weight: ${({ $isActive }) => ($isActive ? "600" : "400")};
+
+  &:hover {
+    color: ${theme.colors.hover.bgPrimary};
+  }
+
+  &:active {
+    color: ${theme.colors.pressed.bgPrimary};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.focused.bgPrimary};
+    outline-offset: 2px;
+  }
+
+  &:first-of-type {
+    justify-content: flex-start;
+  }
+
+  &:last-child {
+    justify-content: flex-end;
+  }
+`;
+
+const RangeStepInput = styled(Input)`
+  grid-column: 1/-1;
+`;
+
+export {
+  RangeContainer,
+  Header,
+  Title,
+  Calculation,
+  RangeBody,
+  RangeNumber,
+  RangeStepContainer,
+  RangeStepNumber,
+  RangeStepInput,
+};
