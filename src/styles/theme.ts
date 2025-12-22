@@ -1,5 +1,3 @@
-import { color } from "storybook/theming";
-
 export const theme = {
   colors: {
     // Основные цвета
@@ -57,6 +55,11 @@ export const theme = {
 
   typography: {
     fontFamily: "var(--button-font-family, system-ui)",
+    amount: {
+      fontFamily: "var(--button-font-family, system-ui)",
+      fontSize: "var(--button-font-size, 1rem)",
+      fontWeight: "var(--button-font-weight, 400)",
+    },
     button: {
       fontFamily: "var(--button-font-family, system-ui)",
       fontSize: "var(--button-font-size, 0.875rem)",

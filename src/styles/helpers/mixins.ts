@@ -51,12 +51,10 @@ export const svgCurrent = css`
   circle {
     &[fill] {
       fill: currentColor;
-      transition: 0.2s fill;
     }
 
     &[stroke] {
       stroke: currentColor;
-      transition: 0.2s stroke;
     }
   }
 `;
