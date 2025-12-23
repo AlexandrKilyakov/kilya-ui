@@ -47,6 +47,8 @@ const Select: React.FC<SelectProps> = ({
 
   const { calculateOpenDirection } = useDropdownDirection();
 
+  const isRu = navigator.language.startsWith("ru");
+
   // -----------------------------
   // normalize options
   // -----------------------------
@@ -174,7 +176,9 @@ const Select: React.FC<SelectProps> = ({
     if (selectedLabels.length === 1) {
       label = selectedLabels[0];
     } else if (selectedLabels.length > 1) {
-      label = `Выбрано: ${selectedLabels.length}`;
+      label = isRu
+        ? `Выбрано: ${selectedLabels.length}`
+        : `Selected: ${selectedLabels.length}`;
     }
 
     return (
