@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import PlusSvg from "../../shared/icons/PlusSvg";
-import MinusSvg from "../../shared/icons/MinusSvg";
+import PlusSvg from "./assets/PlusSvg";
+import MinusSvg from "./assets/MinusSvg";
 import Button from "../Buttons/Button";
 import Input from "../Input";
 import type { AmountProps } from "./types";

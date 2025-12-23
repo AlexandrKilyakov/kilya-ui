@@ -4,7 +4,7 @@ import { theme } from "../../styles";
 const dropdownAppear = keyframes`
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-0.5rem);
   }
   to {
     opacity: 1;
@@ -19,14 +19,14 @@ const dropdownDisappear = keyframes`
   }
   to {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-0.5rem);
   }
 `;
 
 const dropupAppear = keyframes`
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(0.5rem);
   }
   to {
     opacity: 1;
@@ -41,7 +41,7 @@ const dropupDisappear = keyframes`
   }
   to {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(0.5rem);
   }
 `;
 
@@ -59,36 +59,33 @@ export const SelectContainer = styled.div<{ $disabled?: boolean }>`
 `;
 
 export const SelectButton = styled.button<{ $isOpen?: boolean }>`
+  font-family: ${theme.select.typography.fontFamily};
+  font-size: ${theme.select.typography.fontSize};
+  font-weight: ${theme.select.typography.fontWeight};
+  line-height: ${theme.select.typography.lineHeight};
   text-align: start;
-  line-height: 1.375;
-  font-size: ${theme.typography.button.fontSize};
-  font-weight: ${theme.typography.button.fontWeight};
-  font-family: ${theme.typography.button.fontFamily};
-
-  width: 100%;
-  background-color: ${theme.colors.bgWhite};
-  border: 1px solid ${theme.colors.brDefault};
-  border-radius: ${theme.radius.input};
-  padding: ${theme.padding.button};
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-
-  color: ${theme.colors.text};
+  width: 100%;
+  background-color: ${theme.select.colors.backgroundColor};
+  color: ${theme.select.colors.text};
+  border: 0.0625rem solid ${theme.select.colors.borderColor};
+  border-radius: ${theme.select.radius};
+  padding: ${theme.select.padding};
+  gap: ${theme.select.gap};
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    border-color: ${theme.colors.hover.brDefault};
-    background-color: ${theme.colors.hover.bgDefault};
+    border-color: ${theme.select.colors.hover.borderColor};
+    background-color: ${theme.select.colors.hover.backgroundColor};
   }
 
   &:focus {
     outline: none;
-    border-color: ${theme.colors.focused.bgPrimary};
-    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+    border-color: ${theme.select.colors.focus.borderColor};
+    box-shadow: ${theme.select.colors.focus.shadow};
   }
 
   ${({ $isOpen }) =>
@@ -96,7 +93,7 @@ export const SelectButton = styled.button<{ $isOpen?: boolean }>`
     css`
       position: relative;
       z-index: 10;
-      border-color: ${theme.colors.focused.bgPrimary};
+      border-color: ${theme.select.colors.focus.borderColor};
 
       svg {
         transform: rotate(180deg);
@@ -111,12 +108,11 @@ export const SelectDropdown = styled.ul<{
   $maxHeight?: string;
 }>`
   list-style: none;
-  margin: 0;
-  padding: 0;
-
   position: absolute;
   left: 0;
   right: 0;
+  margin: 0;
+  padding: 0;
   ${({ $direction }) =>
     $direction === "top"
       ? "bottom: calc(100% + 0.5rem);"
@@ -124,11 +120,10 @@ export const SelectDropdown = styled.ul<{
 
   display: flex;
   flex-direction: column;
-  background-color: ${theme.colors.bgWhite};
-  border: 1px solid ${theme.colors.brDefault};
-  border-radius: ${theme.radius.input};
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background-color: ${theme.dropdown.colors.backgroundColor};
+  border: 0.0625rem solid ${theme.dropdown.colors.borderColor};
+  border-radius: ${theme.select.radius};
+  box-shadow: ${theme.dropdown.colors.shadow};
 
   max-height: ${({ $maxHeight }) => $maxHeight || "50vh"};
   overflow-y: auto;
@@ -158,26 +153,34 @@ export const SelectDropdown = styled.ul<{
 `;
 
 export const SelectOption = styled.li<{ $isSelected?: boolean }>`
+  font-family: ${theme.select.typography.fontFamily};
+  font-size: ${theme.select.typography.fontSize};
+  font-weight: ${theme.select.typography.fontWeight};
+  line-height: ${theme.select.typography.lineHeight};
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.75rem 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  border-bottom: 1px solid ${theme.colors.brDefault};
+  border-bottom: 0.0625rem solid ${theme.select.colors.option.border};
 
   &:last-child {
     border-bottom: none;
   }
 
   &:hover {
-    background-color: ${theme.colors.hover.bgDefault};
-    color: ${theme.colors.hover.link};
+    background-color: ${theme.select.colors.hover.option.backgroundColor};
+    color: ${theme.select.colors.hover.option.color};
   }
 
   ${({ $isSelected }) =>
     $isSelected &&
     css`
-      background-color: ${theme.colors.focused.bgDefault};
-      color: ${theme.colors.bgPrimary};
-      font-weight: 500;
+      background-color: ${theme.select.colors.option.selected.backgroundColor};
+      color: ${theme.select.colors.option.selected.color};
+      font-weight: var(--option-selected-font-weight, 500);
     `}
 `;
 
@@ -191,7 +194,7 @@ export const SelectContent = styled.div`
 export const SelectImage = styled.img`
   width: 2rem;
   height: 2rem;
-  border-radius: 50%;
+  border-radius: 2rem;
   object-fit: cover;
 `;
 

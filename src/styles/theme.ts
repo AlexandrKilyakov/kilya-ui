@@ -1,3 +1,5 @@
+import type { color } from "storybook/theming";
+
 const getVar = (name: string, value: string) => {
   return `var(--kilya-${name}, ${value})`;
 };
@@ -16,17 +18,17 @@ export const theme = {
     // Hover состояния
     hover: {
       bgPrimary: getVar("hover-bg-primary", "#4096ff"),
-      bgDefault: getVar("hover-bg-default", "#0000000f"),
+      bgDefault: getVar("hover-bg-default", "#e1e1e1"),
       link: getVar("hover-color-link", "#4096ff"),
-      brDefault: getVar("hover-br-default", "#0000000f"),
+      brDefault: getVar("hover-br-default", "#e1e1e1"),
     },
 
     // Focus состояния
     focused: {
       bgPrimary: getVar("focused-bg-primary", "#4096ff"),
-      bgDefault: getVar("focused-bg-default", "#0000000f"),
+      bgDefault: getVar("focused-bg-default", "#e1e1e1"),
       link: getVar("focused-color-link", "#4096ff"),
-      brDefault: getVar("focused-br-default", "#0000000f"),
+      brDefault: getVar("focused-br-default", "#e1e1e1"),
     },
 
     // Pressed состояния
@@ -162,7 +164,7 @@ export const theme = {
       hover: {
         backgroundColor: getVar(
           "button-outlined-hover-background-color",
-          "#0000000f"
+          "#e1e1e1"
         ),
         color: getVar("button-outlined-hover-color", "#4096ff"),
         borderColor: getVar("button-outlined-hover-border-color", "#4096ff"),
@@ -191,7 +193,7 @@ export const theme = {
       hover: {
         backgroundColor: getVar(
           "button-ghost-hover-background-color",
-          "#0000000f"
+          "#e1e1e1"
         ),
         color: getVar("button-ghost-hover-color", "#4096ff"),
       },
@@ -295,11 +297,9 @@ export const theme = {
       text: getVar("input-color", "#000"),
       backgroundColor: getVar("input-background-color", "#ffffff"),
       borderColor: getVar("input-border-color", "#a8a8a8"),
-
       focus: {
         borderColor: getVar("input-focus-border-color", "#1677ff"),
       },
-
       hover: {
         borderColor: getVar("input-hover-border-color", "#1677ff"),
       },
@@ -381,6 +381,82 @@ export const theme = {
         line: getVar("checkable-line-size", "0.125rem"),
       },
       radius: getVar("checkable-radius", "0.125rem"),
+    },
+  },
+
+  select: {
+    typography: {
+      fontFamily: getVar("select-font-family", "system-ui"),
+      fontSize: getVar("select-font-size", "1rem"),
+      fontWeight: getVar("select-font-weight", "400"),
+      lineHeight: getVar("select-line-height", "1.375"),
+    },
+    colors: {
+      text: getVar("select-color", getVar("input-color", "#000")),
+      backgroundColor: getVar(
+        "select-background-color",
+        getVar("input-background-color", "#ffffff")
+      ),
+      borderColor: getVar(
+        "select-border-color",
+        getVar("input-border-color", "#a8a8a8")
+      ),
+      option: {
+        border: getVar("select-option-border-color", "#d9d9d9"),
+        selected: {
+          backgroundColor: getVar(
+            "select-option-selected-background-color",
+            "#e1e1e1"
+          ),
+          color: getVar("select-option-selected-color", "#1677ff"),
+        },
+      },
+      hover: {
+        backgroundColor: getVar("select-background-color", "#e1e1e1"),
+        borderColor: getVar(
+          "select-hover-border-color",
+          getVar("input-hover-border-color", "#e1e1e1")
+        ),
+        option: {
+          backgroundColor: getVar(
+            "select-option-hover-background-color",
+            "#e1e1e1"
+          ),
+          color: getVar("select-option-hover-color", "#4096ff"),
+        },
+      },
+      focus: {
+        shadow: getVar(
+          "select-shadow",
+          "0 0 0 0.125rem rgba(22, 119, 255, 0.1)"
+        ),
+        borderColor: getVar(
+          "select-focus-border-color",
+          getVar("input-focus-border-color", "#4096ff")
+        ),
+      },
+    },
+    radius: getVar("select-radius", "0.3125rem"),
+    padding: getVar("select-padding", "0.5rem 0.75rem"),
+    gap: getVar("select-gap", "0.5rem"),
+  },
+  dropdown: {
+    colors: {
+      backgroundColor: getVar(
+        "dropdown-background-color",
+        getVar("select-background-color", "#ffffff")
+      ),
+      borderColor: getVar(
+        "dropdown-border-color",
+        getVar("select-border-color", "#d9d9d9")
+      ),
+      shadow: getVar(
+        "dropdown-shadow",
+        "0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)"
+      ),
+      hover: {
+        backgroundColor: getVar("dropdown-background-color", "#e1e1e1"),
+      },
     },
   },
 } as const;

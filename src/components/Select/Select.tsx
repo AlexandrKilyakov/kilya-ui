@@ -18,7 +18,6 @@ import { useAnimatedDropdown } from "./hooks/useAnimatedDropdown";
 import { useDropdownDirection } from "./hooks/useDropdownDirection";
 import { useClickOutside } from "./hooks/useClickOutside";
 import { useScrollReposition } from "./hooks/useScrollReposition";
-import { useLabelByValue } from "./hooks/useLabelByValue";
 import ArrowDefault from "./assets/ArrowDefault";
 
 const Select: React.FC<SelectProps> = ({
