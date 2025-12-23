@@ -1,96 +1,95 @@
+const getVar = (name: string, value: string) => {
+  return `var(--kilya-${name}, ${value})`;
+};
+
 export const theme = {
   colors: {
     // Основные цвета
-    bgPrimary: "var(--bg-primary, #1677ff)",
-    bgDefault: "var(--bg-default, #d9d9d9)",
-    bgWhite: "var(--bg-white, #fff)",
-    text: "var(--color-text, #000)",
-    white: "var(--color-white, #fff)",
-    link: "var(--color-link, #1677ff)",
-    brDefault: "var(--color-br-default, #d9d9d9)",
-    inputText: "var(--color-input-text, #000)",
-    inputBg: "var(--bg-input-text, #ffffff)",
-    inputBorder: "var(--color-br-input-text, #a8a8a8)",
+    bgPrimary: getVar("bg-primary", "#1677ff"),
+    bgDefault: getVar("bg-default", "#d9d9d9"),
+    bgWhite: getVar("bg-white", "#fff"),
+    text: getVar("color-text", "#000"),
+    white: getVar("color-white", "#fff"),
+    link: getVar("color-link", "#1677ff"),
+    brDefault: getVar("color-br-default", "#d9d9d9"),
+    inputText: getVar("color-input-text", "#000"),
+    inputBg: getVar("bg-input-text", "#ffffff"),
+    inputBorder: getVar("color-br-input", "#a8a8a8"),
 
     // Hover состояния
     hover: {
-      bgPrimary: "var(--hover-bg-primary, #4096ff)",
-      bgDefault: "var(--hover-bg-default, #0000000f)",
-      link: "var(--hover-color-link, #4096ff)",
-      brDefault: "var(--hover-br-default, #0000000f)",
+      bgPrimary: getVar("hover-bg-primary", "#4096ff"),
+      bgDefault: getVar("hover-bg-default", "#0000000f"),
+      link: getVar("hover-color-link", "#4096ff"),
+      brDefault: getVar("hover-br-default", "#0000000f"),
     },
 
     // Focus состояния
     focused: {
-      bgPrimary: "var(--focused-bg-primary, #4096ff)",
-      bgDefault: "var(--focused-bg-default, #0000000f)",
-      link: "var(--focused-color-link, #4096ff)",
-      brDefault: "var(--focused-br-default, #0000000f)",
+      bgPrimary: getVar("focused-bg-primary", "#4096ff"),
+      bgDefault: getVar("focused-bg-default", "#0000000f"),
+      link: getVar("focused-color-link", "#4096ff"),
+      brDefault: getVar("focused-br-default", "#0000000f"),
     },
 
     // Pressed состояния
     pressed: {
-      bgPrimary: "var(--pressed-bg-primary, #0958d9)",
-      bgDefault: "var(--pressed-bg-default, #00000026)",
-      link: "var(--pressed-color-link, #0958d9)",
-      brDefault: "var(--pressed-br-default, #00000026)",
+      bgPrimary: getVar("pressed-bg-primary", "#0958d9"),
+      bgDefault: getVar("pressed-bg-default", "#00000026"),
+      link: getVar("pressed-color-link", "#0958d9"),
+      brDefault: getVar("pressed-br-default", "#00000026"),
     },
 
     // Disabled состояния
     disabled: {
-      bgPrimary: "var(--disabled-bg-primary, #ddd)",
-      bgDefault: "var(--disabled-bg-default, #ddd)",
-      bgWhite: "var(--disabled-bg-white, #ddd)",
-      text: "var(--disabled-color-text, #818181)",
-      white: "var(--disabled-color-white, #818181)",
-      link: "var(--disabled-color-link, #818181)",
-      brDefault: "var(--disabled-br-default, #ddd)",
+      bgPrimary: getVar("disabled-bg-primary", "#ddd"),
+      bgDefault: getVar("disabled-bg-default", "#ddd"),
+      bgWhite: getVar("disabled-bg-white", "#ddd"),
+      text: getVar("disabled-color-text", "#818181"),
+      white: getVar("disabled-color-white", "#818181"),
+      link: getVar("disabled-color-link", "#818181"),
+      brDefault: getVar("disabled-br-default", "#ddd"),
     },
 
     button: {
-      colorClose: "var(--button-color-close, #888888)",
-      hoverColorClose: "var(--button-hover-color-close, #ff0000)",
+      colorClose: getVar("button-color-close", "#888888"),
+      hoverColorClose: getVar("button-hover-color-close", "#ff0000"),
     },
   },
 
   typography: {
-    fontFamily: "var(--button-font-family, system-ui)",
-    amount: {
-      fontFamily: "var(--button-font-family, system-ui)",
-      fontSize: "var(--button-font-size, 1rem)",
-      fontWeight: "var(--button-font-weight, 400)",
-    },
+    fontFamily: getVar("font-family", "system-ui"),
     button: {
-      fontFamily: "var(--button-font-family, system-ui)",
-      fontSize: "var(--button-font-size, 0.875rem)",
-      fontWeight: "var(--button-font-weight, 400)",
+      fontFamily: getVar("button-font-family", "system-ui"),
+      fontSize: getVar("button-font-size", "0.875rem"),
+      fontWeight: getVar("button-font-weight", "400"),
     },
     label: {
-      fontSize: "var(--label-font-size, 1rem)",
-      fontWeight: "var(--label-font-weight, 400)",
+      fontSize: getVar("label-font-size", "1rem"),
+      fontWeight: getVar("label-font-weight", "400"),
     },
   },
 
   range: {
     colors: {
       borderImageSource: {
-        default: "var(--range-border-image-source, #1677ff)",
-        hover: "var(--range-hover-border-image-source, #4096ff)",
-        pressed: "var(--range-pressed-border-image-source, #0958d9)",
+        default: getVar("range-border-image-source", "#1677ff"),
+        hover: getVar("range-hover-border-image-source", "#4096ff"),
+        pressed: getVar("range-pressed-border-image-source", "#0958d9"),
       },
     },
     sizes: {
-      thumb: "var(--range-thumb-size, 1.25rem)",
-      track: "var(--range-track-size, 0.125rem)",
-      line: "var(--range-line-size, 0.125rem)",
+      thumb: getVar("range-thumb-size", "1.25rem"),
+      track: getVar("range-track-size", "0.125rem"),
+      line: getVar("range-line-size", "0.125rem"),
     },
-    radius: "var(--range-radius, 1.25rem)",
+    radius: getVar("range-radius", "1.25rem"),
   },
 
   radius: {
-    button: { brSmall: "var(--br-button-small, 0.25rem)" },
-    checkbox: "var(--br-checkbox, 0.125rem)",
-    input: "var(--br-checkbox, 0.3125rem)",
+    button: { brSmall: getVar("br-button-small", "0.25rem") },
+    checkbox: getVar("br-checkbox", "0.125rem"),
+    input: getVar("br-input", "0.3125rem"),
   },
 
   spacing: {
@@ -98,13 +97,220 @@ export const theme = {
   },
 
   padding: {
-    button: "var(--button-padding, 0.5rem 1rem)",
-    input: "var(--button-padding, 0.5rem 0.75rem)",
+    button: getVar("button-padding", "0.5rem 1rem"),
+    input: getVar("button-padding", "0.5rem 0.75rem"),
   },
 
   shadow: {
-    checkmark:
-      "var(--shadow-checkmark, 0 0 0 0.25rem rgba(13, 110, 253, 0.25))",
+    checkmark: getVar(
+      "shadow-checkmark",
+      "0 0 0 0.25rem rgba(13, 110, 253, 0.25)"
+    ),
+  },
+  // =========================================================
+  amount: {
+    typography: {
+      fontFamily: getVar("amount-font-family", "system-ui"),
+      fontSize: getVar("amount-font-size", "1rem"),
+      fontWeight: getVar("amount-font-weight", "400"),
+      lineHeight: getVar("amount-line-height", "1.375"),
+    },
+    input: {
+      minWidth: getVar("amount-input-min-width", "1.75rem"),
+    },
+    button: {
+      padding: getVar("amount-button-padding", "0.125rem"),
+      maxWidth: getVar("amount-button-max-width", "1.5rem"),
+      minWidth: getVar("amount-button-min-width", "1.5rem"),
+      width: getVar("amount-button-width", "1.5rem"),
+      backgroundColor: getVar("amount-button-background-color", "transparent"),
+      color: getVar("amount-button-color", "#000"),
+      borderColor: getVar("amount-button-border-color", "transparent"),
+      hover: {
+        backgroundColor: getVar(
+          "amount-button-hover-background-color",
+          "transparent"
+        ),
+        color: getVar("amount-button-hover-color", "#4096ff"),
+        borderColor: getVar("amount-button-hover-border-color", "transparent"),
+      },
+    },
+  },
+
+  button: {
+    typography: {
+      fontFamily: getVar("button-typography-font-family", "system-ui"),
+      fontSize: getVar("button-typography-font-size", "0.875rem"),
+      fontWeight: getVar("button-typography-font-weight", "400"),
+      lineHeight: getVar("button-typography-line-height", "1.5"),
+    },
+    default: {
+      padding: getVar("button-default-padding", "0.5rem 1rem"),
+      backgroundColor: getVar("button-default-background-color", "#1677ff"),
+      color: getVar("button-default-color", "#fff"),
+      borderColor: getVar("button-default-border-color", "#1677ff"),
+      borderRadius: getVar("button-default-border-radius", "0.25rem"),
+      borderWidth: getVar("button-default-border-width", "0.0625rem"),
+      borderStyle: getVar("button-default-border-style", "solid"),
+      minWidth: getVar("button-default-min-width", "auto"),
+      minHeight: getVar("button-default-min-height", "auto"),
+      gap: getVar("button-default-gap", "0.625rem"),
+      hover: {
+        backgroundColor: getVar(
+          "button-default-hover-background-color",
+          "#4096ff"
+        ),
+        color: getVar("button-default-hover-color", "#fff"),
+        borderColor: getVar("button-default-hover-border-color", "#4096ff"),
+      },
+      pressed: {
+        backgroundColor: getVar(
+          "button-default-pressed-background-color",
+          "#0958d9"
+        ),
+        color: getVar("button-default-pressed-color", "#fff"),
+        borderColor: getVar("button-default-pressed-border-color", "#0958d9"),
+      },
+      disabled: {
+        backgroundColor: getVar(
+          "button-default-disabled-background-color",
+          "#ddd"
+        ),
+        color: getVar("button-default-disabled-color", "#818181"),
+        borderColor: getVar("button-default-disabled-border-color", "#ddd"),
+      },
+    },
+    outlined: {
+      backgroundColor: getVar(
+        "button-outlined-background-color",
+        "transparent"
+      ),
+      color: getVar("button-outlined-color", "#1677ff"),
+      borderColor: getVar("button-outlined-border-color", "#1677ff"),
+      hover: {
+        backgroundColor: getVar(
+          "button-outlined-hover-background-color",
+          "#0000000f"
+        ),
+        color: getVar("button-outlined-hover-color", "#4096ff"),
+        borderColor: getVar("button-outlined-hover-border-color", "#4096ff"),
+      },
+      pressed: {
+        backgroundColor: getVar(
+          "button-outlined-pressed-background-color",
+          "#00000026"
+        ),
+        color: getVar("button-outlined-pressed-color", "#0958d9"),
+        borderColor: getVar("button-outlined-pressed-border-color", "#0958d9"),
+      },
+      disabled: {
+        backgroundColor: getVar(
+          "button-outlined-disabled-background-color",
+          "transparent"
+        ),
+        color: getVar("button-outlined-disabled-color", "#818181"),
+        borderColor: getVar("button-outlined-disabled-border-color", "#ddd"),
+      },
+    },
+    ghost: {
+      backgroundColor: getVar("button-ghost-background-color", "transparent"),
+      color: getVar("button-ghost-color", "#1677ff"),
+      borderColor: getVar("button-ghost-border-color", "transparent"),
+      hover: {
+        backgroundColor: getVar(
+          "button-ghost-hover-background-color",
+          "#0000000f"
+        ),
+        color: getVar("button-ghost-hover-color", "#4096ff"),
+      },
+      pressed: {
+        backgroundColor: getVar(
+          "button-ghost-pressed-background-color",
+          "#00000026"
+        ),
+        color: getVar("button-ghost-pressed-color", "#0958d9"),
+      },
+      disabled: {
+        backgroundColor: getVar(
+          "button-ghost-disabled-background-color",
+          "transparent"
+        ),
+        color: getVar("button-ghost-disabled-color", "#818181"),
+      },
+    },
+    text: {
+      backgroundColor: getVar("button-text-background-color", "transparent"),
+      color: getVar("button-text-color", "#1677ff"),
+      borderColor: getVar("button-text-border-color", "transparent"),
+      hover: {
+        backgroundColor: getVar(
+          "button-text-hover-background-color",
+          "transparent"
+        ),
+        color: getVar("button-text-hover-color", "#4096ff"),
+      },
+      pressed: {
+        backgroundColor: getVar(
+          "button-text-pressed-background-color",
+          "transparent"
+        ),
+        color: getVar("button-text-pressed-color", "#0958d9"),
+      },
+      disabled: {
+        backgroundColor: getVar(
+          "button-text-disabled-background-color",
+          "transparent"
+        ),
+        color: getVar("button-text-disabled-color", "#818181"),
+      },
+    },
+    link: {
+      color: getVar("button-link-color", "#1677ff"),
+      hover: {
+        color: getVar("button-link-hover-color", "#4096ff"),
+      },
+      pressed: {
+        color: getVar("button-link-pressed-color", "#0958d9"),
+      },
+      disabled: {
+        color: getVar("button-link-disabled-color", "#818181"),
+      },
+    },
+    white: {
+      backgroundColor: getVar("button-white-background-color", "#fff"),
+      color: getVar("button-white-color", "#000"),
+      borderColor: getVar("button-white-border-color", "#fff"),
+      hover: {
+        backgroundColor: getVar(
+          "button-white-hover-background-color",
+          "#4096ff"
+        ),
+        color: getVar("button-white-hover-color", "#fff"),
+        borderColor: getVar("button-white-hover-border-color", "#4096ff"),
+      },
+      pressed: {
+        backgroundColor: getVar(
+          "button-white-pressed-background-color",
+          "#0958d9"
+        ),
+        color: getVar("button-white-pressed-color", "#fff"),
+        borderColor: getVar("button-white-pressed-border-color", "#0958d9"),
+      },
+      disabled: {
+        backgroundColor: getVar(
+          "button-white-disabled-background-color",
+          "#ddd"
+        ),
+        color: getVar("button-white-disabled-color", "#818181"),
+        borderColor: getVar("button-white-disabled-border-color", "#ddd"),
+      },
+    },
+    close: {
+      size: getVar("button-close-size", "1.875rem"),
+      color: getVar("button-close-color", "#888888"),
+      hoverColor: getVar("button-close-hover-color", "#ff0000"),
+      disabledColor: getVar("button-close-disabled-color", "#818181"),
+    },
   },
 } as const;
 

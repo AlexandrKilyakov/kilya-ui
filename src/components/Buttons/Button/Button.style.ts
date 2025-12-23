@@ -2,91 +2,81 @@
 import styled, { css } from "styled-components";
 import type { ButtonProps } from "./types";
 import {
-  buttonReset,
-  buttonFont,
-  buttonCustom,
+  buttonBase,
   buttonDefault,
+  buttonOutlined,
+  buttonGhost,
+  buttonText,
+  buttonWhite,
 } from "../../../styles/helpers/buttonMixins";
-import { hoverMixin } from "../../../styles/helpers/mixins";
 import { theme } from "../../../styles";
 
-// Создаем базовый стилизованный компонент
-const StyledButton = styled.button<ButtonProps>`
-  ${buttonReset}
-  ${buttonFont}
-  
-  // Общие стили для всех кнопок
-  border-radius: ${theme.radius.button.brSmall};
-  padding: ${theme.padding.button};
-`;
-
-// Стили для конкретных типов кнопок
-export const buttonBorderStyles = css<ButtonProps>`
-  ${buttonCustom}
-  --background-color: transparent;
-  --color: ${theme.colors.text};
-  --border-color: ${theme.colors.bgPrimary};
-  --border-radius: ${theme.radius.button.brSmall};
-  --hover-background-color: ${theme.colors.hover.bgPrimary};
-  --hover-color: ${theme.colors.white};
-  --hover-border-color: ${theme.colors.hover.bgPrimary};
-  --pressed-background-color: ${theme.colors.pressed.bgPrimary};
-  --pressed-color: ${theme.colors.white};
-  --pressed-border-color: ${theme.colors.pressed.bgPrimary};
-`;
-
-export const buttonDefaultStyles = css<ButtonProps>`
-  ${buttonDefault}
-`;
-
+// Специальные миксины для link и close кнопок
 export const buttonLinkStyles = css<ButtonProps>`
-  color: var(--color, ${theme.colors.link});
-  border: none;
-  border-radius: 0;
-  padding: 0;
+  ${buttonBase}
+  --button-color: ${theme.button.link.color};
+  --button-hover-color: ${theme.button.link.hover.color};
+  --button-pressed-color: ${theme.button.link.pressed.color};
+  --button-disabled-color: ${theme.button.link.disabled.color};
+  --button-border-radius: 0;
+  --button-padding: 0;
+  --button-min-width: auto;
+  --button-min-height: auto;
+  text-decoration: none;
 
-  ${hoverMixin(css`
-    color: var(--hover-color, ${theme.colors.hover.link});
-  `)}
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
-  &:active:not(:disabled) {
-    color: var(--pressed-color, ${theme.colors.pressed.link});
+export const buttonCloseStyles = css<ButtonProps>`
+  ${buttonBase}
+  --button-color: ${theme.button.close.color};
+  --button-hover-color: ${theme.button.close.hoverColor};
+  --button-disabled-color: ${theme.button.close.disabledColor};
+  --button-padding: 0;
+  --button-min-width: ${theme.button.close.size};
+  --button-min-height: ${theme.button.close.size};
+  --button-gap: 0;
+  width: ${theme.button.close.size};
+  height: ${theme.button.close.size};
+  border-radius: 0.25rem;
+  font-size: 0;
+
+  svg {
+    max-width: 100%;
+    max-height: 100%;
   }
 `;
 
 export const buttonResetStyles = css<ButtonProps>`
-  ${buttonReset}
+  ${buttonBase}
+  --button-padding: 0;
+  --button-min-width: auto;
+  --button-min-height: auto;
 `;
 
-export const buttonWhiteStyles = css<ButtonProps>`
-  ${buttonCustom}
-  --background-color: ${theme.colors.bgWhite};
-  --color: ${theme.colors.text};
-  --border-color: ${theme.colors.bgWhite};
-  --border-radius: ${theme.radius.button.brSmall};
-  --hover-background-color: ${theme.colors.hover.bgPrimary};
-  --hover-color: ${theme.colors.white};
-  --hover-border-color: ${theme.colors.hover.bgPrimary};
-  --pressed-background-color: ${theme.colors.pressed.bgPrimary};
-  --pressed-color: ${theme.colors.white};
-  --pressed-border-color: ${theme.colors.pressed.bgPrimary};
-`;
-
-// Создаем компонент с динамическими стилями
-export const ButtonStyled = styled(StyledButton)<ButtonProps>`
-  ${({ button }) => {
+// Основной стилизованный компонент
+export const ButtonStyled = styled.button<ButtonProps>`
+  ${({ button = "default" }) => {
     switch (button) {
-      case "border":
-        return buttonBorderStyles;
+      case "default":
+        return buttonDefault;
+      case "outlined":
+        return buttonOutlined;
+      case "ghost":
+        return buttonGhost;
+      case "text":
+        return buttonText;
+      case "white":
+        return buttonWhite;
       case "link":
         return buttonLinkStyles;
-      case "white":
-        return buttonWhiteStyles;
+      case "close":
+        return buttonCloseStyles;
       case "reset":
-        return buttonResetStyles;
-      case "default":
       default:
-        return buttonDefaultStyles;
+        return buttonResetStyles;
     }
   }}
 `;

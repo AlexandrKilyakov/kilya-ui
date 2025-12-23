@@ -1,14 +1,15 @@
+// buttonMixins.ts
 import { css } from "styled-components";
-import { hoverMixin, svgCurrent, fitContain } from "./mixins";
-
+import { hoverMixin, svgCurrent } from "./mixins";
 import { theme } from "../theme";
 
+// Базовый сброс стилей для всех кнопок
 export const buttonReset = css`
   font-style: normal;
-  line-height: 1.5;
+  line-height: ${theme.button.typography.lineHeight};
   width: fit-content;
   background-color: transparent;
-  border: 0.0625rem solid transparent;
+  border: ${theme.button.default.borderWidth} solid transparent;
   padding: 0;
   cursor: pointer;
   user-select: none;
@@ -17,7 +18,11 @@ export const buttonReset = css`
   ${svgCurrent}
 
   svg {
-    ${fitContain}
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   &:focus-visible {
@@ -25,66 +30,166 @@ export const buttonReset = css`
   }
 
   &:disabled {
-    background-color: ${theme.colors.disabled.bgPrimary};
-    color: ${theme.colors.disabled.white};
-    border-color: ${theme.colors.disabled.brDefault};
     pointer-events: none;
   }
 `;
 
-export const buttonFont = css`
-  font-family: ${theme.typography.button.fontFamily};
-  font-size: ${theme.typography.button.fontSize};
-  font-weight: ${theme.typography.button.fontWeight};
+// Базовая типография кнопок
+export const buttonTypography = css`
+  font-family: ${theme.button.typography.fontFamily};
+  font-size: ${theme.button.typography.fontSize};
+  font-weight: ${theme.button.typography.fontWeight};
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.625rem;
+  gap: ${theme.button.default.gap};
 `;
 
-export const buttonCustom = css`
-  ${buttonFont}
+// Базовый набор CSS переменных для кастомизации
+export const buttonVariables = css`
+  --button-background-color: transparent;
+  --button-color: currentColor;
+  --button-border-color: transparent;
+  --button-border-radius: ${theme.button.default.borderRadius};
+  --button-border-style: ${theme.button.default.borderStyle};
+  --button-border-width: ${theme.button.default.borderWidth};
+  --button-padding: ${theme.button.default.padding};
+  --button-min-width: ${theme.button.default.minWidth};
+  --button-min-height: ${theme.button.default.minHeight};
+  --button-gap: ${theme.button.default.gap};
+
+  --button-hover-background-color: transparent;
+  --button-hover-color: currentColor;
+  --button-hover-border-color: transparent;
+
+  --button-pressed-background-color: transparent;
+  --button-pressed-color: currentColor;
+  --button-pressed-border-color: transparent;
+
+  --button-disabled-background-color: transparent;
+  --button-disabled-color: currentColor;
+  --button-disabled-border-color: transparent;
+`;
+
+// Универсальный миксин для кнопок с CSS переменными
+export const buttonBase = css`
   ${buttonReset}
-  background-color: var(--background-color, ${theme.colors.bgPrimary});
-  color: var(--color, ${theme.colors.white});
-  border-color: var(--border-color, ${theme.colors.bgPrimary});
-  border-radius: var(--border-radius, ${theme.radius.button.brSmall});
-  padding: 0.5rem 1rem;
+  ${buttonTypography}
+  ${buttonVariables}
+  
+  background-color: var(--button-background-color);
+  color: var(--button-color);
+  border-color: var(--button-border-color);
+  border-radius: var(--button-border-radius);
+  border-style: var(--button-border-style);
+  border-width: var(--button-border-width);
+  padding: var(--button-padding);
+  min-width: var(--button-min-width);
+  min-height: var(--button-min-height);
+  gap: var(--button-gap);
 
   ${hoverMixin(css`
-    background-color: var(
-      --hover-background-color,
-      ${theme.colors.hover.bgPrimary}
-    );
-    color: var(--hover-color, ${theme.colors.white});
-    border-color: var(--hover-border-color, ${theme.colors.hover.bgPrimary});
+    background-color: var(--button-hover-background-color);
+    color: var(--button-hover-color);
+    border-color: var(--button-hover-border-color);
   `)}
 
   &:active:not(:disabled) {
-    background-color: var(
-      --pressed-background-color,
-      ${theme.colors.pressed.bgPrimary}
-    );
-    color: var(--pressed-color, ${theme.colors.white});
-    border-color: var(
-      --pressed-border-color,
-      ${theme.colors.pressed.bgPrimary}
-    );
+    background-color: var(--button-pressed-background-color);
+    color: var(--button-pressed-color);
+    border-color: var(--button-pressed-border-color);
+  }
+
+  &:disabled {
+    background-color: var(--button-disabled-background-color);
+    color: var(--button-disabled-color);
+    border-color: var(--button-disabled-border-color);
   }
 `;
 
-export const buttonDefault = css`
-  ${buttonReset}
-  ${buttonCustom}
-  --background-color: ${theme.colors.bgPrimary};
-  --color: ${theme.colors.white};
-  --border-color: ${theme.colors.bgPrimary};
-  --border-radius: ${theme.radius.button.brSmall};
-  --hover-background-color: ${theme.colors.hover.bgPrimary};
-  --hover-color: ${theme.colors.white};
-  --hover-border-color: ${theme.colors.hover.bgPrimary};
-  --pressed-background-color: ${theme.colors.pressed.bgPrimary};
-  --pressed-color: ${theme.colors.white};
-  --pressed-border-color: ${theme.colors.pressed.bgPrimary};
-`;
+type ButtonWithStates = {
+  backgroundColor?: string;
+  color?: string;
+  borderColor?: string;
+  hover?: {
+    backgroundColor?: string;
+    color?: string;
+    borderColor?: string;
+  };
+  pressed?: {
+    backgroundColor?: string;
+    color?: string;
+    borderColor?: string;
+  };
+  disabled?: {
+    backgroundColor?: string;
+    color?: string;
+    borderColor?: string;
+  };
+};
+
+const hasStates = (config: unknown): config is ButtonWithStates => {
+  return typeof config === "object" && config !== null && "hover" in config;
+};
+
+const fallback = "transparent";
+
+const prop = <T extends object, K extends keyof T>(
+  obj: T | undefined,
+  key: K
+) => obj?.[key] ?? fallback;
+
+// Функция для быстрого создания вариантов кнопок
+export const createButtonVariant = (variant: keyof typeof theme.button) => {
+  const variantConfig = theme.button[variant];
+
+  // Особые случаи
+  if (variant === "link" || variant === "close") {
+    return css`
+      ${buttonBase}
+    `;
+  }
+
+  // Если это не кнопка со state'ами — просто base
+  if (!hasStates(variantConfig)) {
+    return css`
+      ${buttonBase}
+    `;
+  }
+
+  const { hover, pressed, disabled } = variantConfig;
+
+  return css`
+    ${buttonBase}
+
+    --button-background-color: ${prop(variantConfig, "backgroundColor")};
+    --button-color: ${prop(variantConfig, "color")};
+    --button-border-color: ${prop(variantConfig, "borderColor")};
+
+    --button-hover-background-color: ${prop(hover, "backgroundColor")};
+    --button-hover-color: ${prop(hover, "color")};
+    --button-hover-border-color: ${hover?.borderColor ??
+    hover?.backgroundColor ??
+    fallback};
+
+    --button-pressed-background-color: ${prop(pressed, "backgroundColor")};
+    --button-pressed-color: ${prop(pressed, "color")};
+    --button-pressed-border-color: ${pressed?.borderColor ??
+    pressed?.backgroundColor ??
+    fallback};
+
+    --button-disabled-background-color: ${prop(disabled, "backgroundColor")};
+    --button-disabled-color: ${prop(disabled, "color")};
+    --button-disabled-border-color: ${disabled?.borderColor ??
+    disabled?.backgroundColor ??
+    fallback};
+  `;
+};
+
+// Экспортируем готовые варианты
+export const buttonDefault = createButtonVariant("default");
+export const buttonOutlined = createButtonVariant("outlined");
+export const buttonGhost = createButtonVariant("ghost");
+export const buttonText = createButtonVariant("text");
+export const buttonWhite = createButtonVariant("white");

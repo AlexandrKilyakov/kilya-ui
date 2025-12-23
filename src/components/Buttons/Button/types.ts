@@ -6,5 +6,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   disabled?: boolean;
   type?: "submit" | "reset" | "button";
-  button?: "default" | "border" | "white" | "link" | "reset";
+  button?:
+    | "default"
+    | "outlined"
+    | "ghost"
+    | "text"
+    | "link"
+    | "white"
+    | "close"
+    | "reset";
 }
