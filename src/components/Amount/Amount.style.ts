@@ -5,6 +5,7 @@ import { hoverMixin } from "../../styles/helpers/mixins";
 
 const AmountContainer = styled.div<{ $center?: boolean }>`
   display: flex;
+  gap: 0.25rem;
   width: fit-content;
   ${({ $center }) =>
     !$center &&

@@ -9,7 +9,7 @@ const StyledButton = styled.button<ButtonCloseProps>`
   // Специфичные стили для кнопки close
   width: ${theme.button.close.size};
   height: ${theme.button.close.size};
-  border-radius: ${theme.radius.button.brSmall};
+  border-radius: ${theme.button.radius};
   font-size: 0;
   position: relative;
 

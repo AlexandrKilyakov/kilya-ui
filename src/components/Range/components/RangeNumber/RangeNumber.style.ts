@@ -26,8 +26,8 @@ const RangeNumberStyle = styled.span`
   }
 
   &:focus-visible {
-    outline: 2px solid ${theme.colors.focused.bgPrimary};
-    outline-offset: 2px;
+    outline: 0.125rem solid ${theme.colors.focused.bgPrimary};
+    outline-offset: 0.125rem;
   }
 `;
 

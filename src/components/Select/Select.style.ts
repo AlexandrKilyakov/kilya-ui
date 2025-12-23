@@ -154,7 +154,7 @@ export const SelectDropdown = styled.ul<{
 
 export const SelectOption = styled.li<{ $isSelected?: boolean }>`
   font-family: ${theme.select.typography.fontFamily};
-  font-size: ${theme.select.typography.fontSize};
+  font-size: 0.875rem;
   font-weight: ${theme.select.typography.fontWeight};
   line-height: ${theme.select.typography.lineHeight};
   text-align: start;
