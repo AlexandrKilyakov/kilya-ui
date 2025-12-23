@@ -6,12 +6,12 @@ const checkableInputStyles = css`
   -webkit-appearance: none;
   appearance: none;
   ${ava("1rem")}
-  border: 0.0625rem solid ${theme.colors.bgPrimary};
-  border-radius: ${theme.radius.checkbox};
+  border: 0.0625rem solid ${theme.input.checkable.colors.border.default};
+  border-radius: ${theme.input.checkable.radius};
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-color: ${theme.colors.bgWhite};
+  background-color: ${theme.input.checkable.colors.backgroundColor.default};
   cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
     border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -23,8 +23,8 @@ const checkableInputStyles = css`
   }
 
   &:checked {
-    background-color: ${theme.colors.bgPrimary};
-    border-color: ${theme.colors.bgPrimary};
+    background-color: ${theme.input.checkable.colors.backgroundColor.checked};
+    border-color: ${theme.input.checkable.colors.border.checked};
 
     &[type="checkbox"] {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
@@ -36,17 +36,17 @@ const checkableInputStyles = css`
   }
 
   ${hoverMixin(css`
-    border-color: ${theme.colors.hover.bgPrimary};
+    border-color: ${theme.input.checkable.colors.border.hover};
 
     &:checked {
-      background-color: ${theme.colors.hover.bgPrimary};
+      background-color: ${theme.input.checkable.colors.backgroundColor.hover};
     }
   `)}
 
   &:focus-visible {
     outline: none;
-    border-color: ${theme.colors.hover.bgPrimary};
-    box-shadow: ${theme.shadow.checkmark};
+    border-color: ${theme.input.checkable.colors.focus.border};
+    box-shadow: ${theme.input.checkable.colors.focus.shadow};
   }
 
   &:disabled {

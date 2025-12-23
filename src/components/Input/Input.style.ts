@@ -1,4 +1,3 @@
-// Input.style.ts
 import styled, { css } from "styled-components";
 import type { InputProps, InputType } from "./types";
 import { buttonDefault } from "../../styles/helpers/buttonMixins";
@@ -16,34 +15,34 @@ const buttonInputStyles = css`
 
 // Стили для цветового пикера
 const colorInputStyles = css`
-  width: 50px;
-  height: 30px;
-  padding: 2px;
-  border: 1px solid ${theme.colors.brDefault};
-  border-radius: 4px;
+  width: ${theme.input.sizes.color.width};
+  height: ${theme.input.sizes.color.height};
+  padding: ${theme.input.sizes.color.padding};
+  border: 0.0625rem solid ${theme.colors.brDefault};
+  border-radius: ${theme.input.sizes.color.borderRadius};
   cursor: pointer;
 `;
 
 // Стили для файлового инпута
 const fileInputStyles = css`
-  padding: 8px;
-  border: 1px dashed ${theme.colors.brDefault};
-  border-radius: 4px;
+  padding: ${theme.input.sizes.file.padding};
+  border: 0.0625rem solid ${theme.colors.brDefault};
+  border-radius: ${theme.input.sizes.file.borderRadius};
   cursor: pointer;
 
   &::file-selector-button {
     ${buttonDefault}
-    margin-right: 12px;
+    margin-right: ${theme.input.sizes.file.buttonMargin};
   }
 `;
 
 // Стили для инпута-изображения
 const imageInputStyles = css`
-  padding: 10px 20px;
+  padding: ${theme.input.sizes.image.padding};
   border: none;
-  border-radius: 4px;
+  border-radius: ${theme.input.sizes.image.borderRadius};
   cursor: pointer;
-  font-weight: bold;
+  font-weight: ${theme.input.sizes.image.fontWeight};
   background-color: ${theme.colors.bgPrimary};
   color: ${theme.colors.white};
 
@@ -131,7 +130,7 @@ const StyledInput = styled.input<InputProps>`
 const StyledLabel = styled.label<{ $type: string }>`
   ${({ $type }) => getLabelStyles($type)}
   display: flex;
-  gap: 0.25rem;
+  gap: ${theme.input.sizes.label.gap};
   user-select: none;
 
   p {

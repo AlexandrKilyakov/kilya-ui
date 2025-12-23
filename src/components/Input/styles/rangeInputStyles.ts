@@ -2,48 +2,49 @@ import { css } from "styled-components";
 import { theme } from "../../../styles";
 
 const sliderThumb = css`
-  width: ${theme.range.sizes.thumb};
-  height: ${theme.range.sizes.thumb};
+  width: ${theme.input.range.sizes.thumb};
+  height: ${theme.input.range.sizes.thumb};
   margin-top: var(--margin-top-thumb);
   border: none;
-  border-radius: ${theme.range.radius};
-  background-color: ${theme.colors.bgPrimary};
+  border-radius: ${theme.input.range.radius};
+  background-color: ${theme.input.range.colors.backgroundСolor.default};
   cursor: pointer;
   transition: 0.2s;
 `;
 
 const sliderRunnableTrack = css`
   box-sizing: border-box;
-  background-color: ${theme.colors.bgDefault};
-  height: ${theme.range.sizes.track};
+  background-color: ${theme.input.range.colors.backgroundСolor.track};
+  height: ${theme.input.range.sizes.track};
   border: none;
 `;
 
 const hoverSliderTumb = css`
-  --border-image-source: ${theme.range.colors.borderImageSource.hover};
+  --border-image-source: ${theme.input.range.colors.borderImageSource.hover};
 `;
 
 const pressedSliderTumb = css`
-  --border-image-source: ${theme.range.colors.borderImageSource.pressed};
+  --border-image-source: ${theme.input.range.colors.borderImageSource.pressed};
 `;
 
 const disabledSliderTumb = css`
-  box-shadow: 0 0 0 1.875rem inset ${theme.colors.disabled.brDefault};
+  box-shadow: 0 0 0 1.875rem inset ${theme.input.range.colors.shadow.disabled};
 `;
 
 const focusSliderTumb = css`
-  outline: 0.1875rem solid ${theme.colors.focused.bgPrimary};
-  outline-offset: ${theme.range.sizes.track};
+  outline: 0.1875rem solid ${theme.input.range.colors.outline.focused};
+  outline-offset: ${theme.input.range.sizes.track};
 `;
 
 const rangeInputStyles = css`
-  --border-image-source: ${theme.range.colors.borderImageSource.default};
+  --border-image-source: ${theme.input.range.colors.borderImageSource.default};
   --margin-top-thumb: calc(
-    ${theme.range.sizes.thumb} / -2 + (${theme.range.sizes.track} / 2)
+    ${theme.input.range.sizes.thumb} / -2 +
+      (${theme.input.range.sizes.track} / 2)
   );
-  accent-color: ${theme.colors.bgPrimary};
+  accent-color: ${theme.input.range.colors.backgroundСolor.default};
   appearance: none;
-  height: ${theme.range.sizes.thumb};
+  height: ${theme.input.range.sizes.thumb};
   overflow-x: clip;
   background-color: transparent;
   width: 100%;
@@ -100,7 +101,7 @@ const rangeInputStyles = css`
   /* Прогресс для Firefox */
   &::-moz-range-progress {
     background-color: var(--border-image-source);
-    height: ${theme.range.sizes.track};
+    height: ${theme.input.range.sizes.track};
   }
 
   &::-webkit-slider-thumb {
@@ -113,7 +114,7 @@ const rangeInputStyles = css`
       var(--border-image-source) 50%,
       transparent 0
     );
-    border-image-width: calc(50% - ${theme.range.sizes.line}) 50%;
+    border-image-width: calc(50% - ${theme.input.range.sizes.line}) 50%;
   }
 
   /* Disabled состояния */

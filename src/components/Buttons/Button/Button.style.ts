@@ -29,26 +29,6 @@ export const buttonLinkStyles = css<ButtonProps>`
   }
 `;
 
-export const buttonCloseStyles = css<ButtonProps>`
-  ${buttonBase}
-  --button-color: ${theme.button.close.color};
-  --button-hover-color: ${theme.button.close.hoverColor};
-  --button-disabled-color: ${theme.button.close.disabledColor};
-  --button-padding: 0;
-  --button-min-width: ${theme.button.close.size};
-  --button-min-height: ${theme.button.close.size};
-  --button-gap: 0;
-  width: ${theme.button.close.size};
-  height: ${theme.button.close.size};
-  border-radius: 0.25rem;
-  font-size: 0;
-
-  svg {
-    max-width: 100%;
-    max-height: 100%;
-  }
-`;
-
 export const buttonResetStyles = css<ButtonProps>`
   ${buttonBase}
   --button-padding: 0;
@@ -72,8 +52,6 @@ export const ButtonStyled = styled.button<ButtonProps>`
         return buttonWhite;
       case "link":
         return buttonLinkStyles;
-      case "close":
-        return buttonCloseStyles;
       case "reset":
       default:
         return buttonResetStyles;

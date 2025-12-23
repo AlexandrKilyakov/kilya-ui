@@ -12,9 +12,6 @@ export const theme = {
     white: getVar("color-white", "#fff"),
     link: getVar("color-link", "#1677ff"),
     brDefault: getVar("color-br-default", "#d9d9d9"),
-    inputText: getVar("color-input-text", "#000"),
-    inputBg: getVar("bg-input-text", "#ffffff"),
-    inputBorder: getVar("color-br-input", "#a8a8a8"),
 
     // Hover состояния
     hover: {
@@ -70,26 +67,8 @@ export const theme = {
     },
   },
 
-  range: {
-    colors: {
-      borderImageSource: {
-        default: getVar("range-border-image-source", "#1677ff"),
-        hover: getVar("range-hover-border-image-source", "#4096ff"),
-        pressed: getVar("range-pressed-border-image-source", "#0958d9"),
-      },
-    },
-    sizes: {
-      thumb: getVar("range-thumb-size", "1.25rem"),
-      track: getVar("range-track-size", "0.125rem"),
-      line: getVar("range-line-size", "0.125rem"),
-    },
-    radius: getVar("range-radius", "1.25rem"),
-  },
-
   radius: {
     button: { brSmall: getVar("br-button-small", "0.25rem") },
-    checkbox: getVar("br-checkbox", "0.125rem"),
-    input: getVar("br-input", "0.3125rem"),
   },
 
   spacing: {
@@ -98,15 +77,8 @@ export const theme = {
 
   padding: {
     button: getVar("button-padding", "0.5rem 1rem"),
-    input: getVar("button-padding", "0.5rem 0.75rem"),
   },
 
-  shadow: {
-    checkmark: getVar(
-      "shadow-checkmark",
-      "0 0 0 0.25rem rgba(13, 110, 253, 0.25)"
-    ),
-  },
   // =========================================================
   amount: {
     typography: {
@@ -310,6 +282,105 @@ export const theme = {
       color: getVar("button-close-color", "#888888"),
       hoverColor: getVar("button-close-hover-color", "#ff0000"),
       disabledColor: getVar("button-close-disabled-color", "#818181"),
+    },
+  },
+
+  input: {
+    typography: {
+      fontFamily: getVar("input-font-family", "system-ui"),
+      fontSize: getVar("input-font-size", "1rem"),
+      fontWeight: getVar("input-font-weight", "400"),
+    },
+    colors: {
+      text: getVar("input-color", "#000"),
+      backgroundColor: getVar("input-background-color", "#ffffff"),
+      borderColor: getVar("input-border-color", "#a8a8a8"),
+
+      focus: {
+        borderColor: getVar("input-focus-border-color", "#1677ff"),
+      },
+
+      hover: {
+        borderColor: getVar("input-hover-border-color", "#1677ff"),
+      },
+    },
+    radius: getVar("input-radius", "0.3125rem"),
+    padding: getVar("input-padding", "0.5rem 0.75rem"),
+    sizes: {
+      color: {
+        width: getVar("input-color-width", "3.125rem"),
+        height: getVar("input-color-height", "1.875rem"),
+        padding: getVar("input-color-padding", "0.125rem"),
+        borderRadius: getVar("input-color-radius", "0.25rem"),
+      },
+      file: {
+        padding: getVar("input-file-padding", "0.5rem"),
+        borderRadius: getVar("input-file-radius", "0.25rem"),
+        buttonMargin: getVar("input-file-button-margin", "0.75rem"),
+      },
+      image: {
+        padding: getVar("input-image-padding", "0.625rem 1.25rem"),
+        borderRadius: getVar("input-image-radius", "0.25rem"),
+        fontWeight: getVar("input-image-font-weight", "700"),
+      },
+      number: {
+        minWidth: getVar("input-number-min-width", "1.75rem"),
+      },
+      label: {
+        gap: getVar("label-gap", "0.25rem"),
+      },
+    },
+    range: {
+      colors: {
+        borderImageSource: {
+          default: getVar("range-border-image-source", "#1677ff"),
+          hover: getVar("range-hover-border-image-source", "#4096ff"),
+          pressed: getVar("range-pressed-border-image-source", "#0958d9"),
+        },
+        backgroundСolor: {
+          default: getVar("range-background-color", "#1677ff"),
+          track: getVar("range-track-background-color", "#d9d9d9"),
+        },
+        shadow: {
+          disabled: getVar("range-disabled-shadow", "#ddd"),
+        },
+        outline: {
+          focused: getVar("range-focused-outline", "#4096ff"),
+        },
+      },
+      sizes: {
+        thumb: getVar("range-thumb-size", "1.25rem"),
+        track: getVar("range-track-size", "0.125rem"),
+        line: getVar("range-line-size", "0.125rem"),
+      },
+      radius: getVar("range-radius", "1.25rem"),
+    },
+    checkable: {
+      colors: {
+        border: {
+          default: getVar("checkable-border-color", "#1677ff"),
+          hover: getVar("checkable-hover-border-color", "#4096ff"),
+          checked: getVar("checkable-checked-border-color", "#1677ff"),
+        },
+        backgroundColor: {
+          default: getVar("checkable-background-color", "#fff"),
+          hover: getVar("checkable-hover-background-color", "#4096ff"),
+          checked: getVar("checkable-checked-background-color", "#1677ff"),
+        },
+        focus: {
+          border: getVar("checkable-focus-border-color", "#4096ff"),
+          shadow: getVar(
+            "checkable-focus-shadow",
+            "0 0 0 0.25rem rgba(13, 110, 253, 0.25)"
+          ),
+        },
+      },
+      sizes: {
+        thumb: getVar("checkable-thumb-size", "1.25rem"),
+        track: getVar("checkable-track-size", "0.125rem"),
+        line: getVar("checkable-line-size", "0.125rem"),
+      },
+      radius: getVar("checkable-radius", "0.125rem"),
     },
   },
 } as const;
