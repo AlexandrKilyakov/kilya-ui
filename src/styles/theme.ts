@@ -407,6 +407,18 @@ export const theme = {
           "select-focus-border-color",
           getVar("input-focus-border-color", primaryHover)
         ),
+        option: {
+          backgroundColor: getVar(
+            "select-option-hover-background-color",
+            grayE1
+          ),
+          color: getVar("select-option-hover-color", primaryHover),
+        },
+      },
+      disabled: {
+        option: {
+          color: getVar("select-option-hover-color", grayE1),
+        },
       },
     },
     radius: getVar("select-radius", "0.3125rem"),

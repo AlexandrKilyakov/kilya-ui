@@ -152,7 +152,11 @@ export const SelectDropdown = styled.ul<{
   }}
 `;
 
-export const SelectOption = styled.li<{ $isSelected?: boolean }>`
+export const SelectOption = styled.li<{
+  $isSelected?: boolean;
+  $isDisabled?: boolean;
+  $isFocused?: boolean;
+}>`
   font-family: ${theme.select.typography.fontFamily};
   font-size: 0.875rem;
   font-weight: ${theme.select.typography.fontWeight};
@@ -181,6 +185,23 @@ export const SelectOption = styled.li<{ $isSelected?: boolean }>`
       background-color: ${theme.select.colors.option.selected.backgroundColor};
       color: ${theme.select.colors.option.selected.color};
       font-weight: var(--option-selected-font-weight, 500);
+    `}
+
+  ${({ $isFocused, $isDisabled }) =>
+    $isFocused &&
+    !$isDisabled &&
+    css`
+      background-color: ${theme.select.colors.focus.option.backgroundColor ||
+      theme.select.colors.hover.option.backgroundColor};
+      color: ${theme.select.colors.focus.option.color ||
+      theme.select.colors.hover.option.color};
+    `}
+
+  ${({ $isDisabled }) =>
+    $isDisabled &&
+    css`
+      color: ${theme.select.colors.disabled.option.color};
+      pointer-events: none;
     `}
 `;
 

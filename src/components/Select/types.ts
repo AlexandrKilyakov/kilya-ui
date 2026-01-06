@@ -1,19 +1,14 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, CSSProperties } from "react";
 
 export interface SelectOption {
   value: string | number;
   label: ReactNode;
+  disabled?: boolean;
 }
-
-// Исправленный тип для normalized options
-export type NormalizedSelectOption = {
-  value: string | number;
-  label: ReactNode;
-};
 
 export type SelectOptions =
   | SelectOption[]
-  | Record<string, string>
+  | Record<string | number, string | ReactNode>
   | (string | number)[];
 
 export type SelectValue = string | number;
@@ -26,13 +21,19 @@ export interface SelectProps
   options?: SelectOptions;
   image?: string;
   className?: string;
-  placeholder?: string;
+  placeholder?: ReactNode;
   disabled?: boolean;
   direction?: "auto" | "top" | "bottom";
   maxHeight?: string | number;
   showArrow?: boolean;
   customArrow?: ReactNode;
   multiple?: boolean;
+  searchable?: boolean;
+  noOptionsMessage?: ReactNode;
+  optionHeight?: number;
+  style?: CSSProperties;
+  name?: string;
+  required?: boolean;
 }
 
 export interface DropdownDirection {

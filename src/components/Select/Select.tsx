@@ -4,21 +4,21 @@ import React, {
   useEffect,
   useState,
   useMemo,
+  type KeyboardEvent,
 } from "react";
-import type { SelectProps, NormalizedSelectOption } from "./types";
-import {
-  SelectContainer,
-  SelectButton,
-  SelectDropdown,
-  SelectOption as StyledOption,
-  SelectContent,
-  SelectImage,
-} from "./Select.style";
+import type { SelectProps } from "./types";
+import { SelectContainer } from "./Select.style";
 import { useAnimatedDropdown } from "./hooks/useAnimatedDropdown";
 import { useDropdownDirection } from "./hooks/useDropdownDirection";
 import { useClickOutside } from "./hooks/useClickOutside";
 import { useScrollReposition } from "./hooks/useScrollReposition";
-import ArrowDefault from "./assets/ArrowDefault";
+import { useKeyboardNavigation } from "./hooks/useKeyboardNavigation";
+import { normalizeOptions } from "./utils/normalizeOptions";
+import { getSelectedLabels } from "./utils/getSelectedLabels";
+import { SelectButtonComponent } from "./components/SelectButton";
+import { SelectDropdown } from "./components/SelectDropdown";
+import { SelectOption } from "./components/SelectOption";
+import { ANIMATION_DURATION } from "./utils/constants";
 
 const Select: React.FC<SelectProps> = ({
   value,
@@ -33,13 +33,15 @@ const Select: React.FC<SelectProps> = ({
   showArrow = true,
   customArrow,
   multiple = false,
+  noOptionsMessage = "No options",
   ...props
 }) => {
   const selectRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
   const { isActive, isVisible, isAnimating, toggle, close, setIsAnimating } =
-    useAnimatedDropdown(false);
+    useAnimatedDropdown(false, ANIMATION_DURATION);
 
   const [openDirection, setOpenDirection] = useState<"top" | "bottom">(
     "bottom"
@@ -47,80 +49,29 @@ const Select: React.FC<SelectProps> = ({
 
   const { calculateOpenDirection } = useDropdownDirection();
 
-  const isRu = navigator.language.startsWith("ru");
+  // Нормализация опций
+  const normalizedOptions = useMemo(() => normalizeOptions(options), [options]);
 
-  // -----------------------------
-  // normalize options
-  // -----------------------------
-  function normalizeOption(item: any): NormalizedSelectOption | null {
-    if (item === undefined || item === null) return null;
-
-    if (
-      typeof item === "object" &&
-      "value" in item &&
-      "label" in item &&
-      (typeof item.value === "string" || typeof item.value === "number")
-    ) {
-      return { value: item.value, label: item.label };
-    }
-
-    if (typeof item === "string" || typeof item === "number") {
-      return { value: item, label: String(item) };
-    }
-
-    return null;
-  }
-
-  const normalizedOptions = useMemo<NormalizedSelectOption[]>(() => {
-    if (!options) return [];
-
-    if (Array.isArray(options)) {
-      return options
-        .map(normalizeOption)
-        .filter((item): item is NormalizedSelectOption => item !== null);
-    }
-
-    if (typeof options === "object") {
-      return Object.entries(options).map(([key, label]) => ({
-        value: key,
-        label,
-      }));
-    }
-
-    return [];
-  }, [options]);
-
-  const optionsCount = normalizedOptions.length;
-
-  // -----------------------------
-  // selected values
-  // -----------------------------
+  // Выбранные значения
   const selectedValues = useMemo<(string | number)[]>(() => {
     if (!multiple) {
-      return value !== undefined ? [value as string | number] : [];
+      return value !== undefined && value !== null
+        ? [value as string | number]
+        : [];
     }
     return Array.isArray(value) ? value : [];
   }, [value, multiple]);
 
-  // -----------------------------
-  // labels for render
-  // -----------------------------
-  const selectedLabels = useMemo(() => {
-    return normalizedOptions
-      .filter((opt) => selectedValues.includes(opt.value))
-      .map((opt) => opt.label);
-  }, [normalizedOptions, selectedValues]);
+  // Получение лейблов для отображения
+  const { displayLabel } = useMemo(
+    () => getSelectedLabels(normalizedOptions, selectedValues, placeholder),
+    [normalizedOptions, selectedValues, placeholder]
+  );
 
-  // -----------------------------
-  // handlers
-  // -----------------------------
-  const handleButtonClick = useCallback(() => {
-    if (!disabled) toggle();
-  }, [disabled, toggle]);
-
+  // Обработчик выбора опции
   const handleOptionSelect = useCallback(
     (selectedValue: string | number) => {
-      if (!onChange) return;
+      if (!onChange || disabled) return;
 
       if (!multiple) {
         onChange(selectedValue);
@@ -134,137 +85,151 @@ const Select: React.FC<SelectProps> = ({
 
       onChange(nextValues);
     },
-    [onChange, multiple, selectedValues, close]
+    [onChange, multiple, selectedValues, close, disabled]
   );
 
-  // -----------------------------
-  // reposition logic
-  // -----------------------------
+  // Обработчик клика по кнопке
+  const handleButtonClick = useCallback(() => {
+    if (!disabled && normalizedOptions.length > 0) {
+      toggle();
+    }
+  }, [disabled, normalizedOptions.length, toggle]);
+
+  // Клавиатурная навигация
+  const { focusedIndex, handleKeyDown, resetFocus, setFocusToFirstSelected } =
+    useKeyboardNavigation({
+      normalizedOptions,
+      isActive,
+      selectedValues,
+      onOptionSelect: handleOptionSelect, // Передаем обработчик
+      onClose: close,
+      dropdownRef: dropdownRef as React.RefObject<HTMLUListElement>,
+    });
+
+  // Репозиционирование
   const handleReposition = useCallback(() => {
     if (isActive && buttonRef.current && direction === "auto") {
       const { direction: calculatedDirection } = calculateOpenDirection(
         buttonRef.current,
-        optionsCount
+        normalizedOptions.length
       );
       setOpenDirection(calculatedDirection);
     }
-  }, [isActive, direction, calculateOpenDirection, optionsCount]);
+  }, [isActive, direction, calculateOpenDirection, normalizedOptions.length]);
 
+  // Хуки для внешних событий
   useClickOutside(selectRef as React.RefObject<HTMLElement>, isActive, close);
   useScrollReposition(isActive, handleReposition);
 
+  // Эффекты
   useEffect(() => {
     if (isActive && buttonRef.current) {
       if (direction === "auto") {
         const { direction: calculatedDirection } = calculateOpenDirection(
           buttonRef.current,
-          optionsCount
+          normalizedOptions.length
         );
         setOpenDirection(calculatedDirection);
       } else {
         setOpenDirection(direction);
       }
+      setFocusToFirstSelected();
+    } else {
+      resetFocus();
     }
-  }, [isActive, direction, calculateOpenDirection, optionsCount]);
+  }, [
+    isActive,
+    direction,
+    calculateOpenDirection,
+    normalizedOptions.length,
+    setFocusToFirstSelected,
+    resetFocus,
+  ]);
 
-  // -----------------------------
-  // render content
-  // -----------------------------
-  const renderContent = () => {
-    let label: React.ReactNode = placeholder;
-
-    if (selectedLabels.length === 1) {
-      label = selectedLabels[0];
-    } else if (selectedLabels.length > 1) {
-      label = isRu
-        ? `Выбрано: ${selectedLabels.length}`
-        : `Selected: ${selectedLabels.length}`;
+  // Рендер контента кнопки
+  const renderButtonContent = () => {
+    if (normalizedOptions.length === 0) {
+      return noOptionsMessage;
     }
-
-    return (
-      <>
-        {image && <SelectImage src={image} alt="" />}
-        <span>{label}</span>
-      </>
-    );
+    return displayLabel;
   };
 
-  // -----------------------------
-  // no / single option case
-  // -----------------------------
-  if (optionsCount <= 1) {
-    return (
-      <SelectContainer className={className} $disabled={disabled} {...props}>
-        <SelectButton
-          ref={buttonRef}
-          $isOpen={false}
-          disabled={disabled}
-          onClick={() => {
-            if (optionsCount === 1 && onChange) {
-              onChange(
-                multiple
-                  ? [normalizedOptions[0].value]
-                  : normalizedOptions[0].value
-              );
-            }
-          }}
-        >
-          <SelectContent>{renderContent()}</SelectContent>
-        </SelectButton>
-      </SelectContainer>
-    );
-  }
+  // Рендер опций
+  const renderOptions = () => {
+    if (normalizedOptions.length === 0) {
+      return (
+        <SelectOption
+          option={{ value: "", label: noOptionsMessage, disabled: true }}
+          isSelected={false}
+          isFocused={false}
+          onClick={() => {}}
+        />
+      );
+    }
 
-  // -----------------------------
-  // main render
-  // -----------------------------
+    return normalizedOptions.map((option, index) => (
+      <SelectOption
+        key={option.value}
+        option={option}
+        isSelected={selectedValues.includes(option.value)}
+        isFocused={focusedIndex === index}
+        onClick={handleOptionSelect} // Используем handleOptionSelect
+      />
+    ));
+  };
+
+  // Обработчик клавиш для контейнера
+  const handleContainerKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleButtonClick();
+    }
+    handleKeyDown(e);
+  };
+
   return (
     <SelectContainer
       ref={selectRef}
       className={className}
       $disabled={disabled}
+      onKeyDown={handleContainerKeyDown}
+      role="combobox"
+      aria-expanded={isActive}
+      aria-haspopup="listbox"
+      aria-disabled={disabled}
+      aria-owns={isActive ? "select-dropdown" : undefined}
       {...props}
     >
-      <SelectButton
+      <SelectButtonComponent
         ref={buttonRef}
-        $isOpen={isActive}
-        disabled={disabled}
+        isOpen={isActive}
+        image={image}
         onClick={handleButtonClick}
-        aria-expanded={isActive}
-        aria-haspopup="listbox"
+        disabled={disabled || normalizedOptions.length === 0}
+        showArrow={showArrow && normalizedOptions.length > 0}
+        customArrow={customArrow}
+        aria-label={typeof displayLabel === "string" ? displayLabel : undefined}
       >
-        <SelectContent>{renderContent()}</SelectContent>
-        {showArrow && (customArrow || ArrowDefault)}
-      </SelectButton>
+        {renderButtonContent()}
+      </SelectButtonComponent>
 
-      {isVisible && (
+      {isVisible && normalizedOptions.length > 0 && (
         <SelectDropdown
-          role="listbox"
-          $direction={openDirection}
-          $isActive={isActive}
-          $isAnimating={isAnimating}
-          $maxHeight={
+          ref={dropdownRef}
+          id="select-dropdown"
+          direction={openDirection}
+          isActive={isActive}
+          isAnimating={isAnimating}
+          maxHeight={
             typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight
           }
           onAnimationEnd={() => {
             if (!isActive) setIsAnimating(false);
           }}
+          role="listbox"
+          aria-multiselectable={multiple}
         >
-          {normalizedOptions.map((option, index) => {
-            const isSelected = selectedValues.includes(option.value);
-
-            return (
-              <StyledOption
-                key={`${option.value}-${index}`}
-                $isSelected={isSelected}
-                onClick={() => handleOptionSelect(option.value)}
-                role="option"
-                aria-selected={isSelected}
-              >
-                <span>{option.label}</span>
-              </StyledOption>
-            );
-          })}
+          {renderOptions()}
         </SelectDropdown>
       )}
     </SelectContainer>

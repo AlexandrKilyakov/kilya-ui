@@ -1,0 +1,5 @@
+export const DEFAULT_OPTION_HEIGHT = 50;
+export const DEFAULT_MAX_DROPDOWN_HEIGHT = 300;
+export const DROPDOWN_BUFFER = 10;
+export const ANIMATION_DURATION = 300;
+export const SCROLL_THRESHOLD = 5;
