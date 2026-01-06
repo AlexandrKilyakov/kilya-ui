@@ -1,4 +1,3 @@
-// types.ts - самый простой вариант
 import React from "react";
 
 export type InputType =
@@ -25,7 +24,8 @@ export type InputType =
   | "url"
   | "week";
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  type: InputType;
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  type?: InputType;
   label?: string;
-};
+}

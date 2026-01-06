@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import type { InputProps, InputType } from "./types";
+import type { InputType } from "./types";
 import { buttonDefault } from "../../styles/helpers/buttonMixins";
 import { theme } from "../../styles";
 import checkableInputStyles from "./styles/checkableInputStyles";
@@ -7,13 +7,22 @@ import textInputStyles from "./styles/textInputStyles";
 import numberInputStyles from "./styles/numberInputStyles";
 import rangeInputStyles from "./styles/rangeInputStyles";
 
-// Стили для кнопок-инпутов
+/* ===== styled-only props ===== */
+interface StyledInputProps {
+  type: InputType;
+}
+
+interface StyledLabelProps {
+  $type: InputType;
+}
+
+/* ===== styles ===== */
+
 const buttonInputStyles = css`
   ${buttonDefault}
   display: inline-block;
 `;
 
-// Стили для цветового пикера
 const colorInputStyles = css`
   width: ${theme.input.sizes.color.width};
   height: ${theme.input.sizes.color.height};
@@ -23,7 +32,6 @@ const colorInputStyles = css`
   cursor: pointer;
 `;
 
-// Стили для файлового инпута
 const fileInputStyles = css`
   padding: ${theme.input.sizes.file.padding};
   border: 0.0625rem solid ${theme.colors.brDefault};
@@ -36,7 +44,6 @@ const fileInputStyles = css`
   }
 `;
 
-// Стили для инпута-изображения
 const imageInputStyles = css`
   padding: ${theme.input.sizes.image.padding};
   border: none;
@@ -51,22 +58,12 @@ const imageInputStyles = css`
   }
 `;
 
-// Стили для скрытого инпута
 const hiddenInputStyles = css`
   display: none;
 `;
 
-const textLabelStyles = css`
-  flex-direction: column;
+/* ===== helpers ===== */
 
-  p {
-    order: -1;
-  }
-`;
-
-const checkableLabelStyles = css``;
-
-// Определяем стили в зависимости от типа
 const getInputStyles = (type: InputType) => {
   switch (type) {
     case "button":
@@ -103,35 +100,40 @@ const getInputStyles = (type: InputType) => {
     case "hidden":
       return hiddenInputStyles;
 
-    // text, password, email, search, tel, url
     default:
       return textInputStyles;
   }
 };
 
-const getLabelStyles = (type: string) => {
-  switch (type) {
-    case "checkbox":
-    case "radio":
-      return checkableLabelStyles;
+/* ===== components ===== */
 
-    default:
-      return textLabelStyles;
-  }
-};
+export const StyledInput = styled.input<StyledInputProps>`
+  font-family: inherit;
+  line-height: inherit;
+  margin: 0;
+  box-sizing: border-box;
 
-// Создаем стилизованный компонент
-const StyledInput = styled.input<InputProps>`
   width: auto;
   max-width: 100%;
+
   ${({ type }) => getInputStyles(type)}
 `;
 
-const StyledLabel = styled.label<{ $type: string }>`
-  ${({ $type }) => getLabelStyles($type)}
+export const StyledLabel = styled.label<StyledLabelProps>`
   display: flex;
   gap: ${theme.input.sizes.label.gap};
   user-select: none;
+
+  ${({ $type }) =>
+    $type === "checkbox" || $type === "radio"
+      ? css``
+      : css`
+          flex-direction: column;
+
+          p {
+            order: -1;
+          }
+        `}
 
   p {
     font-family: ${theme.typography.fontFamily};
@@ -140,5 +142,3 @@ const StyledLabel = styled.label<{ $type: string }>`
     margin: 0;
   }
 `;
-
-export { StyledInput, StyledLabel };

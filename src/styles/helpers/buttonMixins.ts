@@ -5,6 +5,7 @@ import { theme } from "../theme";
 
 // Базовый сброс стилей для всех кнопок
 export const buttonReset = css`
+  --svg-size: 1.5rem;
   font-style: normal;
   line-height: ${theme.button.typography.lineHeight};
   width: fit-content;
@@ -18,10 +19,8 @@ export const buttonReset = css`
   ${svgCurrent}
 
   svg {
-    max-width: 1.5rem;
-    max-height: 1.5rem;
-    width: 100%;
-    height: 100%;
+    width: var(--svg-size);
+    height: var(--svg-size);
     object-fit: contain;
   }
 

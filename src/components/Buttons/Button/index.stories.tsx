@@ -6,7 +6,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ["autodocs"],
   argTypes: {
-    button: {
+    format: {
       control: "select",
       options: [
         "default",
@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
         "white",
         "reset",
       ],
-      description: "Тип кнопки",
+      description: "Формат кнопки",
       table: {
         defaultValue: { summary: "default" },
       },
@@ -26,7 +26,7 @@ const meta: Meta<typeof Button> = {
       control: "boolean",
       description: "Состояние disabled",
       table: {
-        defaultValue: { summary: "false" },
+        defaultValue: { summary: undefined },
       },
     },
     type: {
@@ -63,7 +63,7 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     type: "button",
-    button: "default",
+    format: "default",
     disabled: false,
     children: "Кнопка по умолчанию",
   },
@@ -72,7 +72,7 @@ export const Default: Story = {
 export const Outlined: Story = {
   args: {
     type: "button",
-    button: "outlined",
+    format: "outlined",
     disabled: false,
     children: "Контурная кнопка",
   },
@@ -81,7 +81,7 @@ export const Outlined: Story = {
 export const Ghost: Story = {
   args: {
     type: "button",
-    button: "ghost",
+    format: "ghost",
     disabled: false,
     children: "Призрачная кнопка",
   },
@@ -90,7 +90,7 @@ export const Ghost: Story = {
 export const Text: Story = {
   args: {
     type: "button",
-    button: "text",
+    format: "text",
     disabled: false,
     children: "Текстовая кнопка",
   },
@@ -99,7 +99,7 @@ export const Text: Story = {
 export const Link: Story = {
   args: {
     type: "button",
-    button: "link",
+    format: "link",
     disabled: false,
     children: "Ссылка",
   },
@@ -108,7 +108,7 @@ export const Link: Story = {
 export const White: Story = {
   args: {
     type: "button",
-    button: "white",
+    format: "white",
     disabled: false,
     children: "Белая кнопка",
   },
@@ -120,7 +120,7 @@ export const White: Story = {
 export const Reset: Story = {
   args: {
     type: "button",
-    button: "reset",
+    format: "reset",
     disabled: false,
     children: "Сброс",
   },
@@ -129,7 +129,7 @@ export const Reset: Story = {
 export const Disabled: Story = {
   args: {
     type: "button",
-    button: "default",
+    format: "default",
     disabled: true,
     children: "Отключенная кнопка",
   },
@@ -138,7 +138,7 @@ export const Disabled: Story = {
 export const WithIcon: Story = {
   args: {
     type: "button",
-    button: "default",
+    format: "default",
     disabled: false,
     children: (
       <>
@@ -154,7 +154,7 @@ export const WithIcon: Story = {
 export const Submit: Story = {
   args: {
     type: "submit",
-    button: "default",
+    format: "default",
     disabled: false,
     children: "Отправить",
   },
@@ -179,28 +179,29 @@ export const AllVariants: Story = {
           alignItems: "center",
         }}
       >
-        <Button {...args} button="default">
+        <Button {...args} format="default">
           Default
         </Button>
-        <Button {...args} button="outlined">
+        <Button {...args} format="outlined">
           Outlined
         </Button>
-        <Button {...args} button="ghost">
+        <Button {...args} format="ghost">
           Ghost
         </Button>
-        <Button {...args} button="text">
+        <Button {...args} format="text">
           Text
         </Button>
-        <Button {...args} button="link">
+        <Button {...args} format="link">
           Link
         </Button>
-        <Button {...args} button="white">
+        <Button {...args} format="white">
           White
         </Button>
-        <Button {...args} button="reset">
+        <Button {...args} format="reset">
           Reset
         </Button>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -209,25 +210,25 @@ export const AllVariants: Story = {
           alignItems: "center",
         }}
       >
-        <Button {...args} button="default" disabled>
+        <Button {...args} format="default" disabled>
           Default
         </Button>
-        <Button {...args} button="outlined" disabled>
+        <Button {...args} format="outlined" disabled>
           Outlined
         </Button>
-        <Button {...args} button="ghost" disabled>
+        <Button {...args} format="ghost" disabled>
           Ghost
         </Button>
-        <Button {...args} button="text" disabled>
+        <Button {...args} format="text" disabled>
           Text
         </Button>
-        <Button {...args} button="link" disabled>
+        <Button {...args} format="link" disabled>
           Link
         </Button>
-        <Button {...args} button="white" disabled>
+        <Button {...args} format="white" disabled>
           White
         </Button>
-        <Button {...args} button="reset" disabled>
+        <Button {...args} format="reset" disabled>
           Reset
         </Button>
       </div>
@@ -239,7 +240,7 @@ export const AllVariants: Story = {
   },
   parameters: {
     controls: {
-      exclude: ["button", "disabled", "children", "type"],
+      exclude: ["format", "disabled", "children", "type"],
     },
   },
 };

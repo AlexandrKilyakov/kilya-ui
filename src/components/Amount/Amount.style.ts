@@ -1,4 +1,3 @@
-// Input.style.ts
 import styled, { css } from "styled-components";
 import { theme } from "../../styles";
 import { hoverMixin } from "../../styles/helpers/mixins";
@@ -7,6 +6,8 @@ const AmountContainer = styled.div<{ $center?: boolean }>`
   display: flex;
   gap: 0.25rem;
   width: fit-content;
+  align-items: center;
+
   ${({ $center }) =>
     !$center &&
     css`
@@ -18,7 +19,7 @@ const AmountContainer = styled.div<{ $center?: boolean }>`
     `}
 
   input {
-    font-famile: ${theme.amount.typography.fontFamily};
+    font-family: ${theme.amount.typography.fontFamily};
     font-size: ${theme.amount.typography.fontSize};
     font-weight: ${theme.amount.typography.fontWeight};
     line-height: ${theme.amount.typography.lineHeight};
@@ -27,13 +28,14 @@ const AmountContainer = styled.div<{ $center?: boolean }>`
     padding: 0;
     border: none;
     outline: none;
+    background: transparent;
+    text-align: center;
   }
 
   button {
     max-width: ${theme.amount.button.maxWidth};
     min-width: ${theme.amount.button.minWidth};
     width: ${theme.amount.button.width};
-    height: auto;
     padding: ${theme.amount.button.padding};
     background-color: ${theme.amount.button.backgroundColor};
     color: ${theme.amount.button.color};

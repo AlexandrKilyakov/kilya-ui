@@ -1,6 +1,6 @@
 // Button.style.ts
 import styled, { css } from "styled-components";
-import type { ButtonProps } from "./types";
+import type { StyledButtonProps } from "./types";
 import {
   buttonBase,
   buttonDefault,
@@ -12,7 +12,7 @@ import {
 import { theme } from "../../../styles";
 
 // Специальные миксины для link и close кнопок
-export const buttonLinkStyles = css<ButtonProps>`
+export const buttonLinkStyles = css`
   ${buttonBase}
   --button-color: ${theme.button.link.color};
   --button-hover-color: ${theme.button.link.hover.color};
@@ -29,7 +29,7 @@ export const buttonLinkStyles = css<ButtonProps>`
   }
 `;
 
-export const buttonResetStyles = css<ButtonProps>`
+export const buttonResetStyles = css<StyledButtonProps>`
   ${buttonBase}
   --button-padding: 0;
   --button-min-width: auto;
@@ -37,9 +37,9 @@ export const buttonResetStyles = css<ButtonProps>`
 `;
 
 // Основной стилизованный компонент
-export const ButtonStyled = styled.button<ButtonProps>`
-  ${({ button = "default" }) => {
-    switch (button) {
+export const ButtonStyled = styled.button<StyledButtonProps>`
+  ${({ $format = "default" }) => {
+    switch ($format) {
       case "default":
         return buttonDefault;
       case "outlined":

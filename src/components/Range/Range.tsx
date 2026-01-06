@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FC, useCallback } from "react";
 import type { ExtendedRangeProps } from "./types";
 import Amount from "../Amount/Amount";
 import RangeContainer from "./Range.style";
@@ -7,71 +7,86 @@ import RangeNumber from "./components/RangeNumber/RangeNumber";
 import RangeHeader from "./components/RangeHeader/RangeHeader";
 import RangeSteps from "./components/RangeSteps/RangeSteps";
 
-function Range({
+const Range: FC<ExtendedRangeProps & React.HTMLAttributes<HTMLDivElement>> = ({
   product,
   steps,
-  title = "Value",
+  title: defaultTitle = "Value",
   step = 1,
   value: initialValue,
-  onChange = () => {},
+  onInput = () => {},
   className,
   ...props
-}: ExtendedRangeProps & React.HTMLAttributes<HTMLDivElement>) {
-  title = product?.title || title;
+}) => {
+  const title = product?.title || defaultTitle;
   const isRange = !steps?.length;
-  const { min, max } = isRange
-    ? product
-    : { min: 0, max: Number(steps?.length) - 1 };
-  const initial = initialValue || min;
-  const [value, setValue] = useState<number>(initial);
+  const { min, max } = isRange ? product : { min: 0, max: steps.length - 1 };
+
+  const clampToStep = useCallback(
+    (val: number) => {
+      const clamped = Math.min(Math.max(val, min), max); // ограничение min/max
+      const stepped = Math.round((clamped - min) / step) * step + min; // привязка к шагу
+      return Number(stepped.toFixed(2)); // округление до 2х знаков
+    },
+    [min, max, step]
+  );
+
+  const [value, setValue] = useState<number>(clampToStep(initialValue ?? min));
   const [calculation, setCalculation] = useState<string>(
-    product?.calculation || steps?.[0].name || ""
+    product?.calculation ?? steps?.[0]?.name ?? ""
   );
 
   useEffect(() => {
-    if (initialValue !== undefined) {
-      setValue(initialValue);
-    }
-  }, [initialValue]);
+    if (initialValue !== undefined) setValue(clampToStep(initialValue));
+  }, [initialValue, clampToStep]);
 
-  const handleProduct = (newValue: number) => {
-    if (!isRange) setCalculation(steps[Number(newValue)].name);
+  const handleValueChange = useCallback(
+    (newValue: number) => {
+      const finalValue = clampToStep(newValue);
+      setValue(finalValue);
 
-    setValue(newValue);
-    onChange(newValue);
-  };
+      if (!isRange && steps) {
+        setCalculation(steps[finalValue].name);
+      }
+
+      onInput(finalValue);
+    },
+    [clampToStep, isRange, steps, onInput]
+  );
 
   return (
     <RangeContainer className={className} {...props}>
       <RangeHeader title={title} calculation={calculation}>
         {isRange && (
           <Amount
-            value={Math.max(min, +value)}
-            onChange={handleProduct}
+            value={value}
+            onInput={handleValueChange}
             min={min}
             max={max}
             step={step}
-            center={false}
           />
         )}
       </RangeHeader>
 
       <RangeBody
         value={value}
-        step={step}
         min={min}
         max={max}
-        callback={handleProduct}
+        step={step}
+        callback={handleValueChange}
       >
         {isRange && (
-          <RangeNumber min={min} max={max} callback={handleProduct} />
+          <RangeNumber min={min} max={max} callback={handleValueChange} />
         )}
-        {!isRange && (
-          <RangeSteps value={value} steps={steps} callback={handleProduct} />
+        {!isRange && steps && (
+          <RangeSteps
+            value={value}
+            steps={steps}
+            callback={handleValueChange}
+          />
         )}
       </RangeBody>
     </RangeContainer>
   );
-}
+};
 
 export default Range;

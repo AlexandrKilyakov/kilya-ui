@@ -6,6 +6,8 @@ import Input from "../Input";
 import type { AmountProps } from "./types";
 import { AmountContainer } from "./Amount.style";
 
+const formatValue = (value: number) => value.toString().padStart(2, "0");
+
 function Amount({
   value,
   min = 1,
@@ -13,86 +15,102 @@ function Amount({
   step = 1,
   center = false,
   className,
-  onChange,
+  onInput,
 }: AmountProps) {
   const [isFocused, setIsFocused] = useState(false);
-  const [displayValue, setDisplayValue] = useState<string>(value.toString());
+  const [displayValue, setDisplayValue] = useState<string>(formatValue(value));
 
-  // Рассчитываем ширину на основе максимально возможного значения
-  const inputWidth = useMemo(
-    () => `${(displayValue.length * 14) / 16}rem`,
-    [displayValue]
-  );
-
-  const handleProduct = useCallback(
-    (newValue: number) => {
-      if (!onChange) return;
-
-      onChange(newValue);
-    },
-    [onChange]
-  );
-
+  /* sync from outside */
   useEffect(() => {
     if (!isFocused) {
-      setDisplayValue(value.toString().padStart(2, "0"));
+      setDisplayValue(formatValue(value));
     }
   }, [value, isFocused]);
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setDisplayValue(event.target.value);
+  /* dynamic width: подстраивается под длину числа, но не слишком большое */
+  const inputWidth = useMemo(() => {
+    const length = Math.max(displayValue.length, 2); // минимум 2 символа
+    const widthCh = length + 1; // немного под запас
+    return `${widthCh}ch`;
+  }, [displayValue]);
+
+  const emitValue = useCallback(
+    (next: number) => {
+      if (!onInput) return;
+      onInput(Math.min(Math.max(next, min), max));
+    },
+    [onInput, min, max]
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayValue(e.target.value);
   };
 
   const handleFocus = () => {
     setIsFocused(true);
-    setDisplayValue(displayValue.replace(/^0+/, "") || "0");
+    // Удаляем ведущие нули только если значение не равно 0
+    const numericValue = parseInt(displayValue, 10);
+    if (numericValue === 0) {
+      setDisplayValue("0");
+    } else {
+      setDisplayValue(displayValue.replace(/^0+/, "") || "0");
+    }
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const numericValue = Number(event.target.value);
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
 
-    // Проверяем, что введено число
-    if (isNaN(numericValue)) {
-      setDisplayValue(value.toString().padStart(2, "0"));
+    // Если поле пустое или содержит только нечисловые символы
+    if (!trimmedValue || Number.isNaN(Number(trimmedValue))) {
+      setDisplayValue(formatValue(value));
       setIsFocused(false);
       return;
     }
 
+    const numericValue = Number(trimmedValue);
     const clampedValue = Math.min(Math.max(numericValue, min), max);
-    handleProduct(clampedValue);
+
+    emitValue(clampedValue);
+    setDisplayValue(formatValue(clampedValue));
     setIsFocused(false);
   };
 
-  const handleIncrement = useCallback(() => {
-    const newValue = Math.min(value + step, max);
-    handleProduct(newValue);
-  }, [value, step, max, handleProduct]);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // При нажатии Enter применяем изменения
+    if (e.key === "Enter") {
+      e.currentTarget.blur();
+    }
+  };
 
-  const handleDecrement = useCallback(() => {
-    const newValue = Math.max(value - step, min);
-    handleProduct(newValue);
-  }, [value, step, min, handleProduct]);
+  const increment = useCallback(() => {
+    emitValue(value + step);
+  }, [value, step, emitValue]);
+
+  const decrement = useCallback(() => {
+    emitValue(value - step);
+  }, [value, step, emitValue]);
 
   return (
     <AmountContainer className={className} $center={center}>
-      <Button onClick={handleDecrement} disabled={value <= min}>
+      <Button onClick={decrement} disabled={value <= min}>
         <MinusSvg />
       </Button>
+
       <Input
         type="number"
         value={displayValue}
-        inputMode="decimal"
-        onChange={handleInput}
+        inputMode="numeric"
+        onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        style={{ width: inputWidth }}
+        onKeyDown={handleKeyDown}
         min={min}
         max={max}
         step={step}
+        style={{ width: inputWidth }}
       />
-      <Button onClick={handleIncrement} disabled={value >= max}>
+
+      <Button onClick={increment} disabled={value >= max}>
         <PlusSvg />
       </Button>
     </AmountContainer>

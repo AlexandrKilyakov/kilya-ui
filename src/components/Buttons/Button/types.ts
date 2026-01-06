@@ -1,18 +1,20 @@
-// types.ts
 import type { ReactNode, ButtonHTMLAttributes } from "react";
+
+export type ButtonFormat =
+  | "default"
+  | "outlined"
+  | "ghost"
+  | "text"
+  | "link"
+  | "white"
+  | "close"
+  | "reset";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  className?: string;
-  disabled?: boolean;
-  type?: "submit" | "reset" | "button";
-  button?:
-    | "default"
-    | "outlined"
-    | "ghost"
-    | "text"
-    | "link"
-    | "white"
-    | "close"
-    | "reset";
+  format?: ButtonFormat;
+}
+
+export interface StyledButtonProps {
+  $format?: ButtonFormat;
 }

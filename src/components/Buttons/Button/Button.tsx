@@ -5,21 +5,12 @@ import { ButtonStyled } from "./Button.style";
 
 const Button: FC<ButtonProps> = ({
   children,
-  disabled = false,
   type = "button",
-  button = "default",
-  className = "",
+  format = "default",
   ...props
 }) => {
   return (
-    <ButtonStyled
-      type={type}
-      disabled={disabled}
-      button={button}
-      className={className}
-      aria-disabled={disabled}
-      {...props}
-    >
+    <ButtonStyled type={type} $format={format} {...props}>
       {children}
     </ButtonStyled>
   );

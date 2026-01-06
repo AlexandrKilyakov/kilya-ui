@@ -14,10 +14,19 @@ const RangeStepsStyle = styled.span`
 
   span {
     width: 1.5rem;
+
     @media (max-width: 425px) {
-      &:not(:first-child, :last-child) {
+      &:not(:first-child):not(:last-child) {
         display: none;
       }
+    }
+
+    &:first-child {
+      justify-content: flex-start;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
     }
   }
 `;

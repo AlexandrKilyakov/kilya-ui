@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import Range from "./Range";
+import type { ExtendedRangeProps } from "./types";
 
 const meta: Meta<typeof Range> = {
-  title: "Components/Range", // Иерархия в сторибуке
+  title: "Components/Range",
   component: Range,
   tags: ["autodocs"],
   parameters: {
     controls: {
-      exclude: ["className"], // Исключаем className из контролов
+      exclude: ["className"],
     },
     docs: {
       description: {
@@ -17,7 +19,6 @@ const meta: Meta<typeof Range> = {
     },
   },
   argTypes: {
-    onChange: { action: "onChange" }, // Логируем вызов onChange
     product: {
       description: "Объект с минимальным и максимальным значением",
       control: "object",
@@ -38,14 +39,25 @@ const meta: Meta<typeof Range> = {
       description: "Текущее значение",
       control: { type: "number" },
     },
+    onInput: {
+      action: "onInput",
+      description: "Колбэк при изменении значения",
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Range>;
 
-// 📊 История для ползунка (range)
+// 🟢 Компонент-обёртка для интерактивной истории
+const RangeWithState = (args: ExtendedRangeProps) => {
+  const [value, setValue] = useState(args.value ?? args.product.min ?? 0);
+  return <Range {...args} value={value} onInput={setValue} />;
+};
+
+// 📊 Стандартный ползунок
 export const Default: Story = {
+  render: RangeWithState,
   name: "Range Slider",
   args: {
     product: {
@@ -67,8 +79,9 @@ export const Default: Story = {
   },
 };
 
-// 📋 История для выбора из шагов (steps)
+// 📋 Выбор из шагов
 export const WithSteps: Story = {
+  render: RangeWithState,
   name: "Range with Steps",
   args: {
     product: {
@@ -93,13 +106,15 @@ export const WithSteps: Story = {
   },
 };
 
+// 📦 Шаги с объёмом памяти
 export const WithGb: Story = {
+  render: RangeWithState,
   name: "Range with Gb",
   args: {
     product: {
       min: 0,
-      max: 3,
-      title: "Вариант доставки",
+      max: 8,
+      title: "Объём памяти",
     },
     steps: [
       { value: "4Gb", name: "4Gb" },
@@ -112,19 +127,20 @@ export const WithGb: Story = {
       { value: "512Gb", name: "512Gb" },
       { value: "1Tb", name: "1Tb" },
     ],
-    title: "Способ доставки",
+    title: "Выбор объёма памяти",
   },
   parameters: {
     docs: {
       description: {
-        story: "Выбор из предопределенных шагов вместо ползунка.",
+        story: "Выбор из предопределенных шагов памяти.",
       },
     },
   },
 };
 
-// ⚙️ История с кастомным расчетом
+// ⚙️ Ползунок с расчетом (например сумма кредита)
 export const WithCalculation: Story = {
+  render: RangeWithState,
   name: "Range with Calculation",
   args: {
     product: {
@@ -139,8 +155,9 @@ export const WithCalculation: Story = {
   },
 };
 
-// 🔒 История с минимальными значениями
+// 🔒 Минимальный диапазон
 export const Minimal: Story = {
+  render: RangeWithState,
   name: "Minimal Range",
   args: {
     product: {
@@ -151,8 +168,13 @@ export const Minimal: Story = {
   },
 };
 
-// 🎨 История с кастомным классом
+// 🎨 Кастомный стиль
 export const CustomStyled: Story = {
+  render: (args) => (
+    <div style={{ padding: "20px", background: "#f0f0f0" }}>
+      <Range {...args} />
+    </div>
+  ),
   name: "Custom Styled",
   args: {
     product: {
@@ -163,11 +185,4 @@ export const CustomStyled: Story = {
     value: 75,
     className: "custom-range-class",
   },
-  decorators: [
-    (Story) => (
-      <div style={{ padding: "20px", background: "#f0f0f0" }}>
-        <Story />
-      </div>
-    ),
-  ],
 };

@@ -7,14 +7,14 @@ const sliderThumb = css`
   margin-top: var(--margin-top-thumb);
   border: none;
   border-radius: ${theme.input.range.radius};
-  background-color: ${theme.input.range.colors.backgroundСolor.default};
+  background-color: ${theme.input.range.colors.backgroundColor.default};
   cursor: pointer;
   transition: 0.2s;
 `;
 
 const sliderRunnableTrack = css`
   box-sizing: border-box;
-  background-color: ${theme.input.range.colors.backgroundСolor.track};
+  background-color: ${theme.input.range.colors.backgroundColor.track};
   height: ${theme.input.range.sizes.track};
   border: none;
 `;
@@ -42,13 +42,13 @@ const rangeInputStyles = css`
     ${theme.input.range.sizes.thumb} / -2 +
       (${theme.input.range.sizes.track} / 2)
   );
-  accent-color: ${theme.input.range.colors.backgroundСolor.default};
   appearance: none;
   height: ${theme.input.range.sizes.thumb};
   overflow-x: clip;
   background-color: transparent;
   width: 100%;
   cursor: pointer;
+  touch-action: manipulation;
 
   &::-webkit-slider-runnable-track {
     ${sliderRunnableTrack}

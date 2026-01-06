@@ -12,11 +12,11 @@ const checkableInputStyles = css`
   background-position: center;
   background-size: contain;
   background-color: ${theme.input.checkable.colors.backgroundColor.default};
-  cursor: pointer;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
     border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   margin: 0;
   cursor: pointer;
+  touch-action: manipulation;
 
   &[type="radio"] {
     border-radius: var(--ava);

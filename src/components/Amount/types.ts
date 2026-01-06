@@ -1,6 +1,6 @@
 export interface AmountProps {
   value: number;
-  onChange?: (newValue: number) => void;
+  onInput?: (newValue: number) => void;
   min?: number;
   max?: number;
   step?: number;

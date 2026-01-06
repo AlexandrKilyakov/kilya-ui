@@ -310,7 +310,7 @@ export const theme = {
           hover: getVar("range-hover-border-image-source", primaryHover),
           pressed: getVar("range-pressed-border-image-source", primaryPressed),
         },
-        backgroundСolor: {
+        backgroundColor: {
           default: getVar("range-background-color", primary),
           track: getVar("range-track-background-color", grayD9),
         },

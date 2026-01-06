@@ -7,7 +7,6 @@ const RangeNumberStyle = styled.span`
   justify-content: center;
   min-width: 1.25rem;
   height: 1.25rem;
-  letter-spacing: 0em;
   font-size: 0.75rem;
   font-family: ${theme.typography.fontFamily};
   color: ${theme.colors.text};
@@ -20,11 +19,9 @@ const RangeNumberStyle = styled.span`
   &:hover {
     color: ${theme.colors.hover.bgPrimary};
   }
-
   &:active {
     color: ${theme.colors.pressed.bgPrimary};
   }
-
   &:focus-visible {
     outline: 0.125rem solid ${theme.colors.focused.bgPrimary};
     outline-offset: 0.125rem;

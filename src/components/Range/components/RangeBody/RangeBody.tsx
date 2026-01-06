@@ -1,20 +1,17 @@
-import type { RangeBodyProps } from "./types";
+import type { RangeBodyProps } from "../../types";
 import Input from "../../../Input";
 import RangeBodyStyle from "./RangeBody.style";
 
-function RangeBody({
+const RangeBody = ({
   children,
-  step = 1,
   value,
   min,
   max,
+  step = 1,
   callback = () => {},
-}: RangeBodyProps) {
-  const handleRange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const newValue = Number(event.target.value);
-    callback(newValue);
-  };
+}: RangeBodyProps) => {
+  const handleRange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    callback(Number(e.target.value));
 
   return (
     <RangeBodyStyle>
@@ -24,14 +21,11 @@ function RangeBody({
         min={min}
         max={max}
         step={step}
-        onChange={handleRange}
-        aria-valuenow={Number(value)}
-        aria-valuemin={min}
-        aria-valuemax={max}
+        onInput={handleRange}
       />
       {children}
     </RangeBodyStyle>
   );
-}
+};
 
 export default RangeBody;

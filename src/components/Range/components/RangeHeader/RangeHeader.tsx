@@ -1,18 +1,17 @@
-import type { RangeHeaderProps } from "./types";
-import { Calculation, Header, Title } from "./RangeHeader.style";
+import type { FC } from "react";
+import { Header, Title, Calculation } from "./RangeHeader.style";
+import type { RangeHeaderProps } from "../../types";
 
-function RangeHeader({
-  children,
-  calculation = "",
+const RangeHeader: FC<RangeHeaderProps> = ({
   title = "Value",
-}: RangeHeaderProps) {
-  return (
-    <Header>
-      <Title>{title}</Title>
-      {calculation && <Calculation>{calculation}</Calculation>}
-      {children}
-    </Header>
-  );
-}
+  calculation = "",
+  children,
+}) => (
+  <Header>
+    <Title>{title}</Title>
+    {calculation && <Calculation>{calculation}</Calculation>}
+    {children}
+  </Header>
+);
 
 export default RangeHeader;

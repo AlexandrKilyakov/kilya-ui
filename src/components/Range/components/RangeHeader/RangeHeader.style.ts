@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../../styles";
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -9,7 +9,7 @@ const Header = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-const Title = styled.span`
+export const Title = styled.span`
   font-family: ${theme.typography.fontFamily};
   font-size: ${theme.typography.label.fontSize};
   font-weight: ${theme.typography.label.fontWeight};
@@ -18,7 +18,7 @@ const Title = styled.span`
   flex-shrink: 0;
 `;
 
-const Calculation = styled.span`
+export const Calculation = styled.span`
   font-family: ${theme.typography.fontFamily};
   font-size: ${theme.typography.label.fontSize};
   font-weight: ${theme.typography.label.fontWeight};
@@ -26,5 +26,3 @@ const Calculation = styled.span`
   opacity: 0.7;
   flex-shrink: 0;
 `;
-
-export { Header, Title, Calculation };

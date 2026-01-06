@@ -2,11 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Input from ".";
 
 const meta: Meta<typeof Input> = {
+  title: "Components/Input",
   component: Input,
   tags: ["autodocs"],
   parameters: {
     controls: {
-      exclude: ["type", "className"],
+      exclude: ["className"],
     },
   },
 };
@@ -15,17 +16,26 @@ export default meta;
 
 type Story = StoryObj<typeof Input>;
 
+/* =========================
+   Playground
+========================= */
+
+export const Playground: Story = {
+  args: {
+    type: "text",
+    placeholder: "Enter text",
+    disabled: false,
+  },
+};
+
+/* =========================
+   Button-like inputs
+========================= */
+
 export const Button: Story = {
   args: {
     type: "button",
     value: "Click me",
-  },
-};
-
-export const Reset: Story = {
-  args: {
-    type: "reset",
-    value: "Reset form",
   },
 };
 
@@ -36,56 +46,75 @@ export const Submit: Story = {
   },
 };
 
+export const Reset: Story = {
+  args: {
+    type: "reset",
+    value: "Reset form",
+  },
+};
+
+/* =========================
+   Checkable inputs
+========================= */
+
 export const Checkbox: Story = {
   args: {
     type: "checkbox",
-    disabled: false,
-    label: "Test",
+    label: "Checkbox",
+    defaultChecked: true,
   },
 };
 
 export const Radio: Story = {
   args: {
     type: "radio",
-    disabled: false,
-    label: "Test",
+    label: "Radio",
+    defaultChecked: true,
   },
 };
 
-export const DateInput: Story = {
+/* =========================
+   Date & time inputs
+========================= */
+
+export const Date: Story = {
   args: {
     type: "date",
-    value: "2024-01-01",
+    defaultValue: "2024-01-01",
   },
 };
 
 export const DatetimeLocal: Story = {
   args: {
     type: "datetime-local",
-    value: "2024-01-01T12:00",
+    defaultValue: "2024-01-01T12:00",
   },
 };
 
 export const Month: Story = {
   args: {
     type: "month",
-    value: "2024-01",
+    defaultValue: "2024-01",
   },
 };
 
 export const Week: Story = {
   args: {
     type: "week",
-    value: "2024-W01",
+    defaultValue: "2024-W01",
   },
 };
 
 export const Time: Story = {
   args: {
     type: "time",
-    value: "12:30",
+    defaultValue: "12:30",
   },
 };
+
+/* =========================
+   File & media inputs
+========================= */
 
 export const File: Story = {
   args: {
@@ -98,12 +127,14 @@ export const File: Story = {
 export const Image: Story = {
   args: {
     type: "image",
-    src: "https://peerobyte.com/wp-content/uploads/2025/11/iaas.png",
-    alt: "Image Button",
-    width: 100,
-    height: 100,
+    src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%23007aff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='12'>Image</text></svg>",
+    alt: "Image input",
   },
 };
+
+/* =========================
+   Numeric inputs
+========================= */
 
 export const Range: Story = {
   args: {
@@ -128,7 +159,18 @@ export const Number: Story = {
 export const Color: Story = {
   args: {
     type: "color",
-    value: "#1eff00",
+    defaultValue: "#1eff00",
+  },
+};
+
+/* =========================
+   Text inputs
+========================= */
+
+export const Text: Story = {
+  args: {
+    type: "text",
+    placeholder: "Enter text",
   },
 };
 
@@ -149,7 +191,7 @@ export const Password: Story = {
 export const Search: Story = {
   args: {
     type: "search",
-    placeholder: "Search...",
+    placeholder: "Search…",
   },
 };
 
@@ -160,23 +202,9 @@ export const Tel: Story = {
   },
 };
 
-export const Text: Story = {
-  args: {
-    type: "text",
-    placeholder: "Enter text",
-  },
-};
-
 export const Url: Story = {
   args: {
     type: "url",
     placeholder: "https://example.com",
-  },
-};
-
-export const Hidden: Story = {
-  args: {
-    type: "hidden",
-    value: "secret-value",
   },
 };
