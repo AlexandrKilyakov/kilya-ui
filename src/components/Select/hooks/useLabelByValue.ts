@@ -24,7 +24,7 @@ export const useLabelByValue = (
 
     // Объект Record<string, string>
     if (typeof options === "object" && !Array.isArray(options)) {
-      return options[value] || "";
+      return String(options[value]) || "";
     }
 
     // Массив примитивов

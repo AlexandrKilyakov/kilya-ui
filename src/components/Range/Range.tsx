@@ -7,17 +7,17 @@ import RangeNumber from "./components/RangeNumber/RangeNumber";
 import RangeHeader from "./components/RangeHeader/RangeHeader";
 import RangeSteps from "./components/RangeSteps/RangeSteps";
 
-const Range: FC<ExtendedRangeProps & React.HTMLAttributes<HTMLDivElement>> = ({
+const Range: FC<ExtendedRangeProps> = ({
   product,
   steps,
-  title: defaultTitle = "Value",
+  title = "Value",
   step = 1,
   value: initialValue,
-  onInput = () => {},
+  onInput,
   className,
   ...props
 }) => {
-  const title = product?.title || defaultTitle;
+  const defaultTitle = product?.title || title;
   const isRange = !steps?.length;
   const { min, max } = isRange ? product : { min: 0, max: steps.length - 1 };
 
@@ -48,14 +48,14 @@ const Range: FC<ExtendedRangeProps & React.HTMLAttributes<HTMLDivElement>> = ({
         setCalculation(steps[finalValue].name);
       }
 
-      onInput(finalValue);
+      if (onInput) onInput(finalValue);
     },
     [clampToStep, isRange, steps, onInput]
   );
 
   return (
     <RangeContainer className={className} {...props}>
-      <RangeHeader title={title} calculation={calculation}>
+      <RangeHeader title={defaultTitle} calculation={calculation}>
         {isRange && (
           <Amount
             value={value}

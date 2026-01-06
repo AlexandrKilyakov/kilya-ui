@@ -5,9 +5,10 @@ export interface RangeProps {
     title: string;
     calculation?: string;
   };
+  title?: string;
   step?: number;
   value?: number;
-  onInput?: (value: number) => void;
+  onInput?: (newValue: number) => void;
   className?: string;
 }
 
