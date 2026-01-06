@@ -8,6 +8,10 @@ import { AmountContainer } from "./Amount.style";
 
 const formatValue = (value: number) => value.toString().padStart(2, "0");
 
+const alignToStep = (value: number, min: number, step: number) => {
+  return min + Math.round((value - min) / step) * step;
+};
+
 function Amount({
   value,
   min = 1,
@@ -20,97 +24,141 @@ function Amount({
   const [isFocused, setIsFocused] = useState(false);
   const [displayValue, setDisplayValue] = useState<string>(formatValue(value));
 
-  /* sync from outside */
+  // Исправление: Нормализуем начальное значение
+  useEffect(() => {
+    const normalizedValue = Math.min(Math.max(value, min), max);
+    if (normalizedValue !== value && onInput) {
+      onInput(normalizedValue);
+    }
+    setDisplayValue(formatValue(normalizedValue));
+  }, []); // Только при монтировании
+
+  // и не равно текущему отображаемому значению (когда не в фокусе)
   useEffect(() => {
     if (!isFocused) {
-      setDisplayValue(formatValue(value));
-    }
-  }, [value, isFocused]);
+      // Исправление: Проверяем, отличается ли отображаемое значение от нормализованного
+      const normalizedValue = Math.min(Math.max(value, min), max);
+      const currentValue = parseInt(displayValue, 10);
 
-  /* dynamic width: подстраивается под длину числа, но не слишком большое */
+      if (!isNaN(currentValue) && normalizedValue !== currentValue) {
+        setDisplayValue(formatValue(normalizedValue));
+      }
+    }
+  }, [value, isFocused, min, max, displayValue]);
+
   const inputWidth = useMemo(() => {
-    const length = Math.max(displayValue.length, 2); // минимум 2 символа
-    const widthCh = length + 1; // немного под запас
+    const length = Math.max(
+      displayValue.length,
+      min.toString().length,
+      max.toString().length
+    );
+    const widthCh = Math.min(length + 1, 7); // Ограничиваем максимальную ширину
     return `${widthCh}ch`;
-  }, [displayValue]);
+  }, [displayValue, min, max]);
 
   const emitValue = useCallback(
     (next: number) => {
       if (!onInput) return;
-      onInput(Math.min(Math.max(next, min), max));
+      const clampedValue = Math.min(Math.max(next, min), max);
+      const aligned = alignToStep(clampedValue, min, step);
+      setDisplayValue(formatValue(clampedValue));
+      onInput(aligned);
     },
     [onInput, min, max]
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDisplayValue(e.target.value);
+    const newValue = e.target.value;
+    if (newValue === "" || /^-?\d*$/.test(newValue)) {
+      setDisplayValue(newValue);
+    }
   };
 
   const handleFocus = () => {
     setIsFocused(true);
-    // Удаляем ведущие нули только если значение не равно 0
+    // Удаляем ведущие нули
     const numericValue = parseInt(displayValue, 10);
-    if (numericValue === 0) {
-      setDisplayValue("0");
-    } else {
-      setDisplayValue(displayValue.replace(/^0+/, "") || "0");
+    if (!isNaN(numericValue)) {
+      setDisplayValue(numericValue.toString());
     }
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const trimmedValue = e.target.value.trim();
+    const raw = e.target.value.trim();
 
-    // Если поле пустое или содержит только нечисловые символы
-    if (!trimmedValue || Number.isNaN(Number(trimmedValue))) {
-      setDisplayValue(formatValue(value));
-      setIsFocused(false);
-      return;
+    let nextValue: number;
+
+    if (raw === "" || raw === "-" || Number.isNaN(Number(raw))) {
+      nextValue = min;
+    } else {
+      nextValue = parseInt(raw, 10);
     }
 
-    const numericValue = Number(trimmedValue);
-    const clampedValue = Math.min(Math.max(numericValue, min), max);
+    const clampedValue = Math.min(Math.max(nextValue, min), max);
 
-    emitValue(clampedValue);
     setDisplayValue(formatValue(clampedValue));
+    emitValue(clampedValue);
     setIsFocused(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // При нажатии Enter применяем изменения
     if (e.key === "Enter") {
       e.currentTarget.blur();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      emitValue(value + step);
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      emitValue(value - step);
     }
   };
 
   const increment = useCallback(() => {
-    emitValue(value + step);
-  }, [value, step, emitValue]);
+    const nextValue = value + step;
+    if (nextValue <= max) {
+      emitValue(nextValue);
+    }
+  }, [value, step, emitValue, max]);
 
   const decrement = useCallback(() => {
-    emitValue(value - step);
-  }, [value, step, emitValue]);
+    const nextValue = value - step;
+    if (nextValue >= min) {
+      emitValue(nextValue);
+    }
+  }, [value, step, emitValue, min]);
 
   return (
     <AmountContainer className={className} $center={center}>
-      <Button onClick={decrement} disabled={value <= min}>
+      <Button
+        onClick={decrement}
+        disabled={value <= min}
+        aria-label="Уменьшить количество"
+      >
         <MinusSvg />
       </Button>
 
       <Input
-        type="number"
+        type="text"
         value={displayValue}
         inputMode="numeric"
+        pattern="[0-9]*"
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        min={min}
-        max={max}
-        step={step}
         style={{ width: inputWidth }}
+        aria-label="Количество"
+        role="spinbutton"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
       />
 
-      <Button onClick={increment} disabled={value >= max}>
+      <Button
+        onClick={increment}
+        disabled={value >= max}
+        aria-label="Увеличить количество"
+      >
         <PlusSvg />
       </Button>
     </AmountContainer>
