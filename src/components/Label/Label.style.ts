@@ -10,6 +10,7 @@ export const StyledLabel = styled.label<StyledLabelProps>`
   display: flex;
   gap: ${theme.input.sizes.label.gap};
   user-select: none;
+  margin-bottom: 1.25rem;
 
   ${({ $type }) =>
     $type === "checkbox" || $type === "radio"
