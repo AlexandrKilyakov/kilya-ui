@@ -52,7 +52,7 @@ type Story = StoryObj<typeof Range>;
 // 🟢 Компонент-обёртка для интерактивной истории
 const RangeWithState = (args: ExtendedRangeProps) => {
   const [value, setValue] = useState(args.value ?? args.product.min ?? 0);
-  return <Range {...args} value={value} onInput={setValue} />;
+  return <Range value={value} onInput={setValue} {...args} />;
 };
 
 // 📊 Стандартный ползунок
