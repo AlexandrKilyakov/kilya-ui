@@ -1,6 +1,7 @@
 import { type FC } from "react";
 import type { InputProps } from "./types";
-import { StyledInput, StyledLabel } from "./Input.style";
+import { StyledInput } from "./Input.style";
+import Label from "../Label";
 
 const Input: FC<InputProps> = ({ id, type = "text", label, ...props }) => {
   const input = <StyledInput id={id} type={type} {...props} />;
@@ -10,10 +11,9 @@ const Input: FC<InputProps> = ({ id, type = "text", label, ...props }) => {
   }
 
   return (
-    <StyledLabel $type={type} htmlFor={id}>
+    <Label type={type} htmlFor={id} title={label}>
       {input}
-      <p>{label}</p>
-    </StyledLabel>
+    </Label>
   );
 };
 

@@ -19,8 +19,10 @@ import { SelectButtonComponent } from "./components/SelectButton";
 import { SelectDropdown } from "./components/SelectDropdown";
 import { SelectOption } from "./components/SelectOption";
 import { ANIMATION_DURATION } from "./utils/constants";
+import Label from "../Label";
 
 const Select: React.FC<SelectProps> = ({
+  label,
   value,
   onChange,
   options = [],
@@ -187,7 +189,7 @@ const Select: React.FC<SelectProps> = ({
     handleKeyDown(e);
   };
 
-  return (
+  const Component = (
     <SelectContainer
       ref={selectRef}
       className={className}
@@ -234,6 +236,10 @@ const Select: React.FC<SelectProps> = ({
       )}
     </SelectContainer>
   );
+
+  if (!label) return Component;
+
+  return <Label title={label}>{Component}</Label>;
 };
 
 export default Select;

@@ -33,6 +33,7 @@ export interface SelectProps
   optionHeight?: number;
   style?: CSSProperties;
   name?: string;
+  label?: string;
   required?: boolean;
 }
 

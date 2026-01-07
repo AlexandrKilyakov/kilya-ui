@@ -4,3 +4,4 @@ export { default as ButtonClose } from "./components/Buttons/ButtonClose";
 export { default as Input } from "./components/Input";
 export { default as Select } from "./components/Select";
 export { default as Range } from "./components/Range";
+export { default as Label } from "./components/Label";

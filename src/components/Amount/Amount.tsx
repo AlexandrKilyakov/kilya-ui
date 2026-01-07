@@ -5,6 +5,7 @@ import Button from "../Buttons/Button";
 import Input from "../Input";
 import type { AmountProps } from "./types";
 import { AmountContainer } from "./Amount.style";
+import Label from "../Label";
 
 const formatValue = (value: number) => value.toString().padStart(2, "0");
 
@@ -13,6 +14,7 @@ const alignToStep = (value: number, min: number, step: number) => {
 };
 
 function Amount({
+  label,
   value,
   min = 1,
   max = 100,
@@ -127,7 +129,7 @@ function Amount({
     }
   }, [value, step, emitValue, min]);
 
-  return (
+  const Component = (
     <AmountContainer className={className} $center={center}>
       <Button
         onClick={decrement}
@@ -163,6 +165,10 @@ function Amount({
       </Button>
     </AmountContainer>
   );
+
+  if (!label) return Component;
+
+  return <Label title={label}>{Component}</Label>;
 }
 
 export default Amount;

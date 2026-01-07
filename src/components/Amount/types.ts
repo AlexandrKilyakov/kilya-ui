@@ -6,4 +6,5 @@ export interface AmountProps {
   step?: number;
   center?: boolean;
   className?: string;
+  label?: string;
 }

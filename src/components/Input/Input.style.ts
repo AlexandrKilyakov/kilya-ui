@@ -12,10 +12,6 @@ interface StyledInputProps {
   type: InputType;
 }
 
-interface StyledLabelProps {
-  $type: InputType;
-}
-
 /* ===== styles ===== */
 
 const buttonInputStyles = css`
@@ -117,28 +113,4 @@ export const StyledInput = styled.input<StyledInputProps>`
   max-width: 100%;
 
   ${({ type }) => getInputStyles(type)}
-`;
-
-export const StyledLabel = styled.label<StyledLabelProps>`
-  display: flex;
-  gap: ${theme.input.sizes.label.gap};
-  user-select: none;
-
-  ${({ $type }) =>
-    $type === "checkbox" || $type === "radio"
-      ? css``
-      : css`
-          flex-direction: column;
-
-          p {
-            order: -1;
-          }
-        `}
-
-  p {
-    font-family: ${theme.typography.fontFamily};
-    font-size: ${theme.typography.label.fontSize};
-    font-weight: ${theme.typography.label.fontWeight};
-    margin: 0;
-  }
 `;
